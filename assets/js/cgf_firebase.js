@@ -1,12 +1,15 @@
-// Configurações do Firebase
-var firebaseConfig = {
-  apiKey: "AIzaSyCRAnhjaBVyOm99RcUb7qP-W-IiHdsvaiI",
-  authDomain: "SEU_DOMINIO.firebaseapp.com",
-  projectId: "391319262679",
-  storageBucket: "SEU_BUCKET.appspot.com",
-  messagingSenderId: "SEU_SENDER_ID",
-  appId: "SEU_APP_ID"
-};
 
-// Inicializar o Firebase
-firebase.initializeApp(firebaseConfig);
+  const firebaseConfig = {
+    apiKey: "AIzaSyAgD8XTf6Phg5bInu-D1RxW5nNSdjkZANs",
+    authDomain: "medinet-827ad.firebaseapp.com",
+    projectId: "medinet-827ad",
+    storageBucket: "medinet-827ad.appspot.com",
+    messagingSenderId: "52310695996",
+    appId: "1:52310695996:web:2d71e891702b1aa0e92339",
+    measurementId: "G-56M8KYD721"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+
+
