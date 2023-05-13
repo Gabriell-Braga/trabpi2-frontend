@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Login 04</title>
+    <title>MediNet</title>
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -30,10 +30,10 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-12 col-lg-10">
-            <div class="alert alert-danger mb-2" role="alert">
+            <div class="alert alert-danger mb-2 none" role="alert">
               Erro ao Tentar Acesso!
             </div>
-            <div class="alert alert-info mb-2" role="alert">
+            <div class="alert alert-info mb-2 none" role="alert">
               Erro ao Tentar Acesso!
             </div>
             <div class="wrap d-md-flex">
@@ -47,56 +47,161 @@
               <div class="login-wrap p-4 p-md-5">
                 <div class="d-flex">
                   <div class="w-100">
-                    <h3 class="mb-4">Login</h3>
+                    <h3 class="mb-4 login-text">Login</h3>
                   </div>
                 </div>
-                <div class="signin-form">
-                  <div class="form-group mb-3">
-                    <label class="label" for="email">email</label>
-                    <input
-                      type="text"
-                      name="email"
-                      class="form-control"
-                      placeholder="Username"
-                      required
-                    />
-                  </div>
-                  <div class="form-group mb-3">
-                    <label class="label" for="password">Senha</label>
-                    <input
-                      type="password"
-                      name="password"
-                      class="form-control"
-                      placeholder="Password"
-                      required
-                    />
-                  </div>
-                  <div class="form-group">
-                    <button
-                      onclick="logIn()"
-                      type="submit"
-                      class="form-control btn btn-primary rounded submit px-3"
-                    >
-                      Entrar
-                    </button>
-                  </div>
-                  <div class="form-group d-md-flex">
-                    <div class="w-50 text-left">
-                      <label class="checkbox-wrap checkbox-primary mb-0"
-                        >Lembrar de mim
-                        <input type="checkbox" checked />
-                        <span class="checkmark"></span>
-                      </label>
+                <div class="login-section">
+                  <div class="signin-form">
+                    <div class="form-group mb-3">
+                      <label class="label" for="email">Email</label>
+                      <input
+                        type="email"
+                        name="email"
+                        class="form-control"
+                        placeholder="Username"
+                        required
+                      />
                     </div>
-                    <div class="w-50 text-md-right">
-                      <a class="cursor-pointer" onclick="recoverPass()">Esqueci a Senha</a>
+                    <div class="form-group mb-3">
+                      <label class="label" for="password">Senha</label>
+                      <input
+                        type="password"
+                        name="password"
+                        class="form-control"
+                        placeholder="Password"
+                        required
+                      />
+                    </div>
+                    <div class="form-group">
+                      <button
+                        onclick="logIn()"
+                        type="submit"
+                        class="form-control btn btn-primary rounded submit px-3"
+                      >
+                        Entrar
+                      </button>
+                    </div>
+                    <div class="form-group d-md-flex">
+                      <div class="w-50 text-left">
+                        <label class="checkbox-wrap checkbox-primary mb-0"
+                          >Lembrar de mim
+                          <input type="checkbox" checked />
+                          <span class="checkmark"></span>
+                        </label>
+                      </div>
+                      <div class="w-50 text-md-right">
+                        <a class="cursor-pointer" onclick="recoverPass()">Esqueci a Senha</a>
+                      </div>
                     </div>
                   </div>
+                  <p class="text-center">
+                    Não está cadastrado?
+                    <a onclick="changeCadLogin(true)" data-toggle="tab" class="cursor-pointer">Cadastre-se</a>
+                  </p>
                 </div>
-                <p class="text-center">
-                  Não está cadastrado?
-                  <a data-toggle="tab" href="#signup">Cadastre-se</a>
-                </p>
+                <div class="cad-section none">
+                  <div class="signin-form">
+                    <div class="form-group mb-3">
+                      <label class="label" for="cad-nome">Nome</label>
+                      <input
+                        type="text"
+                        name="cad-nome"
+                        class="form-control"
+                        placeholder="Nome"
+                        required
+                      />
+                    </div>
+                    <div class="form-group mb-3">
+                      <label class="label" for="cad-email">Email</label>
+                      <input
+                        type="email"
+                        name="cad-email"
+                        class="form-control"
+                        placeholder="Email"
+                        required
+                      />
+                    </div>
+                    <div class="form-group mb-3">
+                      <label class="label" for="cad-password">Senha</label>
+                      <input
+                        type="password"
+                        name="cad-password"
+                        class="form-control"
+                        placeholder="Senha"
+                        required
+                      />
+                    </div>
+                    <div class="form-group mb-3">
+                      <label class="label" for="confirm-cad-password">Confirme a Senha</label>
+                      <input
+                        type="password"
+                        name="confirm-cad-password"
+                        class="form-control"
+                        placeholder="Senha"
+                        required
+                      />
+                    </div>
+                    <div class="form-group mb-3">
+                      <label class="label" for="cad-sex">Sexo</label>
+                      <div class="form-check">
+                        <input class="form-check-input" value="masculino" type="radio" name="cad-sexo">
+                        <label class="form-check-label" for="sexo">Masculino</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" value="feminino" type="radio" name="cad-sexo">
+                        <label class="form-check-label" for="sexo">Feminino</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" value="x" type="radio" name="cad-sexo">
+                        <label class="form-check-label" for="sexo">Prefiro Não dizer</label>
+                      </div>
+                    </div>
+                    <div class="form-group mb-3">
+                      <label class="label" for="cad-limitacoes">Limitações</label>
+                      <div class="form-check">
+                        <input class="form-check-input" name="cad-limitacoes" type="checkbox" value="cognitiva">
+                        <label class="form-check-label" for="cad-limitacoes">
+                          Cognitiva
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" name="cad-limitacoes" type="checkbox" value="locomocao">
+                        <label class="form-check-label" for="cad-limitacoes">
+                          Locomoção
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" name="cad-limitacoes" type="checkbox" value="audicao">
+                        <label class="form-check-label" for="cad-limitacoes">
+                          Audição
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" name="cad-limitacoes" type="checkbox" value="visao">
+                        <label class="form-check-label" for="cad-limitacoes">
+                          Visão
+                        </label>
+                      </div>
+                    </div>
+                    <div class="form-group mb-3">
+                      <label class="label" for="email">Alergia para Medicamentos</label>
+                      <textarea name="cad-alergia" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                      <button
+                        onclick="Cad()"
+                        type="submit"
+                        class="form-control btn btn-primary rounded submit px-3"
+                      >
+                        Cadastrar
+                      </button>
+                    </div>
+                  </div>
+                  <p class="text-center">
+                    Já está cadastrado?
+                    <a onclick="changeCadLogin(false)" data-toggle="tab" class="cursor-pointer">Logar-se</a>
+                  </p>
+                </div>
               </div>
             </div>
           </div>

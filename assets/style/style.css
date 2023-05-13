@@ -39,6 +39,10 @@
   .cursor-pointer {
     cursor: pointer;
   }
+
+  .none{
+    display: none;
+  }
   
  :root {
     --blue: #007bff;
