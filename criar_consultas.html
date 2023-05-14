@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <style>
+      body {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+      }
+  </style>
+
+</head>
+<body>
+ 
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
+    import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+  
+    const firebaseConfig = {
+      apiKey: "AIzaSyAgD8XTf6Phg5bInu-D1RxW5nNSdjkZANs",
+      authDomain: "medinet-827ad.firebaseapp.com",
+      databaseURL: "https://medinet-827ad-default-rtdb.firebaseio.com",
+      projectId: "medinet-827ad",
+      storageBucket: "medinet-827ad.appspot.com",
+      messagingSenderId: "52310695996",
+      appId: "1:52310695996:web:2d71e891702b1aa0e92339",
+      measurementId: "G-56M8KYD721"
+    };
+  
+    // Inicialize o Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    function isDataValida(data) {
+        const dataAtual = new Date();
+        const dataConsulta = new Date(data);
+        return dataConsulta >= dataAtual;
+    }
+  
+    async function adicionarConsulta() {
+        const cpf = document.getElementById('cpf').value;
+        const nome = document.getElementById('nome').value;
+        const idade = document.getElementById('idade').value;
+        const diaConsulta = document.getElementById('diaConsulta').value;
+        const medico = document.querySelector('input[name="medico"]:checked').value;
+        const sintomas = document.getElementById('sintomas').value;
+
+        // Objeto com os dados da consulta
+        if (!isDataValida(diaConsulta)) {
+            console.log('Data inválida. A consulta deve ser agendada para um dia posterior ou igual ao dia atual.');
+        return;
+        }
+
+
+        const consultaData = {
+            nome:nome,
+            cpf: cpf,
+            idade: idade,
+            diaConsulta: diaConsulta,
+            medico: medico,
+            sintomas: sintomas
+        };
+
+        // Adiciona a consulta ao Firestore
+        addDoc(collection(db, 'consultas'), consultaData)
+            .then((docRef) => {
+            console.log('Consulta adicionada com ID:', docRef.id);
+            consultaForm.reset(); // Limpa o formulário após adicionar a consulta
+            })
+            .catch((error) => {
+            console.error('Erro ao adicionar consulta:', error);
+            });
+        }
+
+        const consultaForm = document.getElementById('consultaForm');
+        consultaForm.addEventListener('submit', (e) => {
+        e.preventDefault(); // Evita o envio padrão do formulário
+        adicionarConsulta();
+        });
+
+  </script>
+
+
+
+
+
+
+   <!-- <script type="module" src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
+
+    <script type="module" src="assets/js/firebase.js"></script>-->
+
+
+    <div class="container">
+      <h2>Formulário de Consulta</h2>
+      <form id="consultaForm">
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o seu nome" required>
+            </div>
+          <div class="form-group">
+              <label for="cpf">CPF:</label>
+              <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Digite o CPF" required>
+          </div>
+          <div class="form-group">
+              <label for="idade">Idade:</label>
+              <input type="number" class="form-control" id="idade" name="idade" placeholder="Digite a Idade" required>
+          </div>
+          <div class="form-group">
+              <label for="diaConsulta">Dia da Consulta:</label>
+              <input type="date" class="form-control" id="diaConsulta" name="diaConsulta" required>
+          </div>
+          <div class="form-group">
+              <label for="medico">Médico:</label>
+              <div class="form-check">
+                  <input class="form-check-input" type="radio" name="medico" id="marta" value="Marta" required>
+                  <label class="form-check-label" for="marta">Marta</label>
+              </div>
+              <div class="form-check">
+                  <input class="form-check-input" type="radio" name="medico" id="luiz" value="Luiz" required>
+                  <label class="form-check-label" for="luiz">Luiz</label>
+              </div>
+              <div class="form-check">
+                  <input class="form-check-input" type="radio" name="medico" id="pedro" value="Pedro" required>
+                  <label class="form-check-label" for="pedro">Pedro</label>
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="sintomas">O que está sentindo:</label>
+              <textarea class="form-control" id="sintomas" name="sintomas" placeholder="Digite os sintomas" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar</button>
+      </form>
+  </div>
+
+
+</body>
+</html>
