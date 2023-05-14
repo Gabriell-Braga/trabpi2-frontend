@@ -1,0 +1,34 @@
+
+body{
+    background-color: #d4d3d3;
+}
+
+.navbar-custom {
+    background-color: #808080; /* Cor cinza */
+}
+
+    .navbar-custom .navbar-nav .nav-link {
+        color: #ffffff; /* Cor do texto nos botões */
+        background-color: #45bccc;
+        margin-right: 1px;
+        border-radius: 3px;
+    }
+
+    .navbar-custom .navbar-nav .nav-link:hover,
+    .navbar-custom .navbar-nav .nav-link:focus {
+        color: #ffffff; /* Cor do texto nos botões ao passar o mouse ou foco */
+        background-color: #215b63; /* Cor de destaque dos botões */
+    }
+
+    .navbar-custom .navbar-nav .nav-link>a{
+        background-attachment: #45bccc;
+    }
+
+    .table-bordered th,
+    .table-bordered td {
+        border: 1px solid #000000; /* Cor das linhas pretas */
+    }
+
+    th{
+        border-bottom: 1px solid black;
+    }

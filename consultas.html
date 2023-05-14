@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Consultas - Coleção Teste</title>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="assets/style/styleConsultas.css">
+	<style>
+		.container {
+			margin-top: 50px;
+		}
+
+		.table-bordered th,
+		.table-bordered td {
+			border: 1px solid #000000; /* Cor das linhas pretas */
+		}
+	</style>
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+	<a class="navbar-brand" href="#">Logo</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+		aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarNav">
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item">
+				<a class="nav-link" href="criar_consultas.html">Marcar Consulta</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Botão 2</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Botão 3</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+
+<body>
+	
+	<div class="container">
+		<h2>Consultas</h2>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>CPF</th>
+					<th>Idade</th>
+					<th>Dia da Consulta</th>
+					<th>Médico</th>
+					<th>Sintomas</th>
+				</tr>
+			</thead>
+			<tbody id="consultaTableBody">
+			</tbody>
+		</table>
+	</div>
+
+   <!-- <div class="text-center">
+        <div class="form-group d-inline-block">
+            <label for="inputCPF">Pesquisar por CPF:</label>
+            <input type="text" class="form-control form-control-sm" id="inputCPF" placeholder="Digite o CPF">
+            <button type="button" class="btn btn-primary btn-sm" onclick="pesquisarConsulta()">Pesquisar</button>
+        </div>
+    </div>-->
+
+
+
+	<script type="module">
+		import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
+		import { getFirestore, collection, addDoc, getDocs } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+	  
+		const firebaseConfig = {
+		  apiKey: "AIzaSyAgD8XTf6Phg5bInu-D1RxW5nNSdjkZANs",
+		  authDomain: "medinet-827ad.firebaseapp.com",
+		  databaseURL: "https://medinet-827ad-default-rtdb.firebaseio.com",
+		  projectId: "medinet-827ad",
+		  storageBucket: "medinet-827ad.appspot.com",
+		  messagingSenderId: "52310695996",
+		  appId: "1:52310695996:web:2d71e891702b1aa0e92339",
+		  measurementId: "G-56M8KYD721"
+		};
+	  
+		// Inicialize o Firebase
+		const app = initializeApp(firebaseConfig);
+		const db = getFirestore(app);
+	
+
+		async function listarConsultas() {
+			const consultaTableBody = document.getElementById('consultaTableBody');
+
+			try {
+				const snapshot = await getDocs(collection(db, 'consultas'));
+
+				snapshot.forEach((doc) => {
+					const consulta = doc.data();
+
+					const newRow = document.createElement('tr');
+					newRow.innerHTML = `
+						<td>${consulta.nome}</td>
+						<td>${consulta.cpf}</td>
+						<td>${consulta.idade}</td>
+						<td>${consulta.diaConsulta}</td>
+						<td>${consulta.medico}</td>
+						<td>${consulta.sintomas}</td>
+					`;
+
+					consultaTableBody.appendChild(newRow);
+				});
+			} catch (error) {
+				console.log('Erro ao listar consultas:', error);
+			}
+		}
+
+		listarConsultas();
+
+	</script>
+</body>
+</html>

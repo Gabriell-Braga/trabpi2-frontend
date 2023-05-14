@@ -1,247 +1,212 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Esportes e Lazer</title>
-    <link
-      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro"
-      rel="stylesheet"
-      type="text/css"
+    <title>MediNet</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <link rel="icon" href="assets/img/favicon.ico" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <link rel="stylesheet" href="assets/style/style.css" />
-    <link rel="stylesheet" href="assets/style/bootstrap.css" />
-    <link rel="stylesheet" href="assets/style/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/style/bootstrap-theme.css" />
-    <link rel="stylesheet" href="assets/style/bootstrap-theme.min.css" />
-
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="assets/js/js.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="assets/js/firebase.js"></script>
   </head>
-  <body>
-    <nav class="navbar">
-      <div class="logo">
-        <a href="index.html"><img height="75" src="assets/img/logo.png" /></a>
-      </div>
-      <ul class="nav-links">
-        <input type="checkbox" id="checkbox_toggle" />
-        <label for="checkbox_toggle" class="hamburger">&#9776;</label>
-        <div class="menu">
-          <li><a class="select" href="index.html">Home</a></li>
-          <!-- <li class="services">
-            <a>Programas</a>
-            <ul class="dropdown">
-              <li><a href="programas/caminhar.html">Caminhar</a></li>
-              <li><a href="programas/vida-ativa.html">Vida Ativa</a></li>
-              <li><a href="programas/superar.html">Superar</a></li>
-              <li><a href="programas/esporte-esperança.html">Esporte Esperança</a></li>
-            </ul>
-          </li> -->
-          <li><a href="contato.html">Contato</a></li>
-          <li><a href="sobre.html">Sobre Nós</a></li>
-        </div>
-      </ul>
-    </nav>
-    <div class="banner-menu home-banner">
-      <div class="banner">
-        <div class="left-banner white">
-          <div class="content">
-            <h1>SEU BEM ESTAR É NOSSA MISSÃO</h1>
-            <p>
-              Em nosso hospital, o paciente é o centro de tudo o que fazemos.
-              Nosso objetivo é cuidar de você com o máximo de atenção, carinho e
-              eficiência, para garantir seu bem-estar e saúde em todos os
-              momentos.
-            </p>
-            <div class="buttons">
-              <a href="programas/superar.html" class="button rounded no-bg"
-                >NOVIDADES <span class="badge">0</span></a
-              >
-              <a href="programas/vida-ativa.html" class="button rounded"
-                >VEJA MAIS</a
-              >
+  <body onload="initializeApp()">
+    <section class="ftco-section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-12 col-lg-10">
+            <div class="alert alert-danger mb-2 none" role="alert">
+              Erro ao Tentar Acesso!
+            </div>
+            <div class="alert alert-info mb-2 none" role="alert">
+              Erro ao Tentar Acesso!
+            </div>
+            <div class="wrap d-md-flex">
+              <div
+                class="img"
+                style="
+                  background-image: url(assets/img/home.jpg);
+                  background-position: right center;
+                "
+              ></div>
+              <div class="login-wrap p-4 p-md-5">
+                <div class="d-flex">
+                  <div class="w-100">
+                    <h3 class="mb-4 login-text">Login</h3>
+                  </div>
+                </div>
+                <div class="login-section">
+                  <div class="signin-form">
+                    <div class="form-group mb-3">
+                      <label class="label" for="email">Email</label>
+                      <input
+                        type="email"
+                        name="email"
+                        class="form-control"
+                        placeholder="Username"
+                        required
+                      />
+                    </div>
+                    <div class="form-group mb-3">
+                      <label class="label" for="password">Senha</label>
+                      <input
+                        type="password"
+                        name="password"
+                        class="form-control"
+                        placeholder="Password"
+                        required
+                      />
+                    </div>
+                    <div class="form-group">
+                      <button
+                        onclick="logIn()"
+                        type="submit"
+                        class="form-control btn btn-primary rounded submit px-3"
+                      >
+                        Entrar
+                      </button>
+                    </div>
+                    <div class="form-group d-md-flex">
+                      <div class="w-50 text-left">
+                        <label class="checkbox-wrap checkbox-primary mb-0"
+                          >Lembrar de mim
+                          <input type="checkbox" checked />
+                          <span class="checkmark"></span>
+                        </label>
+                      </div>
+                      <div class="w-50 text-md-right">
+                        <a class="cursor-pointer" onclick="recoverPass()">Esqueci a Senha</a>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="text-center">
+                    Não está cadastrado?
+                    <a onclick="changeCadLogin(true)" data-toggle="tab" class="cursor-pointer">Cadastre-se</a>
+                  </p>
+                </div>
+                <div class="cad-section none">
+                  <div class="signin-form">
+                    <div class="form-group mb-3">
+                      <label class="label" for="cad-nome">Nome</label>
+                      <input
+                        type="text"
+                        name="cad-nome"
+                        class="form-control"
+                        placeholder="Nome"
+                        required
+                      />
+                    </div>
+                    <div class="form-group mb-3">
+                      <label class="label" for="cad-email">Email</label>
+                      <input
+                        type="email"
+                        name="cad-email"
+                        class="form-control"
+                        placeholder="Email"
+                        required
+                      />
+                    </div>
+                    <div class="form-group mb-3">
+                      <label class="label" for="cad-password">Senha</label>
+                      <input
+                        type="password"
+                        name="cad-password"
+                        class="form-control"
+                        placeholder="Senha"
+                        required
+                      />
+                    </div>
+                    <div class="form-group mb-3">
+                      <label class="label" for="confirm-cad-password">Confirme a Senha</label>
+                      <input
+                        type="password"
+                        name="confirm-cad-password"
+                        class="form-control"
+                        placeholder="Senha"
+                        required
+                      />
+                    </div>
+                    <div class="form-group mb-3">
+                      <label class="label" for="cad-sex">Sexo</label>
+                      <div class="form-check">
+                        <input class="form-check-input" value="masculino" type="radio" name="cad-sexo">
+                        <label class="form-check-label" for="sexo">Masculino</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" value="feminino" type="radio" name="cad-sexo">
+                        <label class="form-check-label" for="sexo">Feminino</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" value="x" type="radio" name="cad-sexo">
+                        <label class="form-check-label" for="sexo">Prefiro Não dizer</label>
+                      </div>
+                    </div>
+                    <div class="form-group mb-3">
+                      <label class="label" for="cad-limitacoes">Limitações</label>
+                      <div class="form-check">
+                        <input class="form-check-input" name="cad-limitacoes" type="checkbox" value="cognitiva">
+                        <label class="form-check-label" for="cad-limitacoes">
+                          Cognitiva
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" name="cad-limitacoes" type="checkbox" value="locomocao">
+                        <label class="form-check-label" for="cad-limitacoes">
+                          Locomoção
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" name="cad-limitacoes" type="checkbox" value="audicao">
+                        <label class="form-check-label" for="cad-limitacoes">
+                          Audição
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" name="cad-limitacoes" type="checkbox" value="visao">
+                        <label class="form-check-label" for="cad-limitacoes">
+                          Visão
+                        </label>
+                      </div>
+                    </div>
+                    <div class="form-group mb-3">
+                      <label class="label" for="email">Alergia para Medicamentos</label>
+                      <textarea name="cad-alergia" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                      <button
+                        onclick="Cad()"
+                        type="submit"
+                        class="form-control btn btn-primary rounded submit px-3"
+                      >
+                        Cadastrar
+                      </button>
+                    </div>
+                  </div>
+                  <p class="text-center">
+                    Já está cadastrado?
+                    <a onclick="changeCadLogin(false)" data-toggle="tab" class="cursor-pointer">Logar-se</a>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="section">
-      <h2>SUA SAÚDE É NOSSA PRIORIDADE</h2>
-      <p class="justify">
-        Nós sabemos que a saúde é um dos maiores bens que podemos ter, e por
-        isso, nos dedicamos com paixão a oferecer tratamentos médicos de
-        qualidade, sempre com foco em promover sua saúde e qualidade de vida.
-      </p>
-      <p class="justify">
-        No nosso hospital, acreditamos que a saúde é uma condição completa, que
-        vai além da simples ausência de doenças. Por isso, oferecemos
-        tratamentos integrados, que visam o bem-estar físico, mental e social
-        dos nossos pacientes. Aqui, você encontra uma equipe multidisciplinar,
-        composta por médicos, enfermeiros, psicólogos, nutricionistas e outros
-        profissionais, que trabalham em conjunto para cuidar de você de forma
-        integral. Além disso, nosso hospital conta com uma estrutura moderna e
-        completa, que oferece todo o suporte necessário para o seu tratamento.
-        Acreditamos que a saúde é um estado de equilíbrio e harmonia, e estamos
-        aqui para ajudá-lo a alcançá-lo.
-      </p>
-    </div>
-    <div class="banner-secondary estudantes-banner">
-      <div class="banner right">
-        <div class="right-banner white">
-          <div class="content">
-            <h1>ATENDIMENTO ACOLHEDOR</h1>
-            <p>
-              Aqui no nosso hospital, cada paciente é tratado com respeito e
-              carinho, como se fosse parte da nossa própria família. Nossa
-              equipe de profissionais altamente capacitados está sempre pronta
-              para oferecer o melhor atendimento possível, de forma humanizada e
-              acolhedora. Afinal, sabemos que um tratamento de sucesso depende
-              também do apoio emocional e do suporte de que cada paciente
-              necessita.
-            </p>
-            <div class="buttons">
-              <a
-                href="programas/esporte-esperança.html"
-                class="button rounded no-bg"
-                >VEJA MAIS</a
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="section">
-      <h2>PROGRAMAS</h2>
-      <div class="row">
-        <div class="column">
-          <div class="card-image">
-            <img src="assets/img/vida-ativa.png" alt="" />
-          </div>
-          <div class="card">
-            <h2>Vida Ativa</h2>
-            <p>
-              Realizado pela Prefeitura de Belo Horizonte por meio da Secretaria
-              Municipal de Esportes e Lazer, o Vida Ativa promove atividades
-              físicas, de lazer e de socialização à população com idade superior
-              a 50 anos.
-            </p>
-            <a
-              href="programas/vida-ativa.html"
-              class="button rounded no-bg blue"
-              >VEJA MAIS</a
-            >
-          </div>
-        </div>
-        <div class="column">
-          <div class="card-image">
-            <img src="assets/img/caminhar.png" alt="" />
-          </div>
-          <div class="card">
-            <h2>Caminhar</h2>
-            <p>
-              A Secretaria Municipal de Esportes e Lazer desenvolve o programa
-              Caminhar com o objetivo de estimular a prática de atividades
-              físicas e promover a saúde. As atividades do programa são
-              realizadas junto aos ...
-            </p>
-            <a href="programas/caminhar.html" class="button rounded no-bg blue"
-              >VEJA MAIS</a
-            >
-          </div>
-        </div>
-        <div class="column">
-          <div class="card-image">
-            <img src="assets/img/superar.png" alt="" />
-          </div>
-          <div class="card">
-            <h2>Superar</h2>
-            <p>
-              Realizado pela Prefeitura de Belo Horizonte, o programa Superar
-              promove a inclusão social das pessoas com deficiências por meio da
-              prática de atividades físicas, culturais e do esporte educacional
-              ou de rendimento.
-            </p>
-            <a href="programas/superar.html" class="button rounded no-bg blue"
-              >VEJA MAIS</a
-            >
-          </div>
-        </div>
-        <div class="column">
-          <div class="card-image">
-            <img src="assets/img/ee.png" alt="" />
-          </div>
-          <div class="card">
-            <h2>Esporte Esperança</h2>
-            <p>
-              Desenvolvido pela Prefeitura de Belo Horizonte por meio da
-              Secretaria Municipal de Esportes e Lazer, o Esporte Esperança é um
-              programa que visa democratizar o acesso e a vivência do esporte
-              educacional/lazer ...
-            </p>
-            <a
-              href="programas/esporte-esperança.html"
-              class="button rounded no-bg blue"
-              >VEJA MAIS</a
-            >
-          </div>
-        </div>
-      </div>
-    </div>
-    <footer>
-      <div class="content-f">
-        <div class="left box">
-          <div class="upper">
-            <div class="topic">Sobre Nós</div>
-            <p>
-              A Secretaria Municipal de Esportes e Lazer atua na elaboração e
-              execução de programas e projetos dentro dos preceitos de estímulo
-              à prática de atividades físicas e de convívio social.
-            </p>
-          </div>
-          <div class="lower">
-            <div class="topic">Contato</div>
-            <div class="phone">
-              <a target="_blank" href="tel:5531973065499"
-                ><i class="fas fa-phone-volume"></i>31 97306-5499</a
-              >
-            </div>
-            <div class="email">
-              <a target="_blank" href="mailto:gabriel.braga.andrade@ufu.br"
-                ><i class="fas fa-envelope"></i>gabriel.braga.andrade@ufu.br</a
-              >
-            </div>
-          </div>
-        </div>
-        <div class="right box">
-          <div class="topic">Redes Sociais</div>
-          <div class="media-icons">
-            <a target="_blank" href="https://github.com/Gabriell-Braga"
-              ><i class="fab fa-github"></i
-            ></a>
-            <a target="_blank" href="https://www.instagram.com/gbraga.exe/"
-              ><i class="fab fa-instagram"></i
-            ></a>
-            <a
-              target="_blank"
-              href="https://www.linkedin.com/in/gabriel-braga-642ba2182/"
-              ><i class="fab fa-linkedin-in"></i
-            ></a>
-          </div>
-        </div>
-      </div>
-      <div class="bottom">
-        <p>
-          Copyright © 2022
-          <a href="https://github.com/Gabriell-Braga">Gabriel Braga</a> Todos
-          direitos reservados
-        </p>
-      </div>
-    </footer>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script src="assets/js/jquery.js"></script>
+    </section>
   </body>
 </html>
