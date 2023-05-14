@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/style/style.css" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="assets/js/consultaProntuario.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="assets/js/firebase.js"></script>
+</head>
+
+<body onload="initializeApp(), changeCadLogin(true)">
+    <section class="ftco-section">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-10">
+              <div class="alert alert-danger mb-2 none" role="alert">
+                Erro ao Tentar Acesso!
+              </div>
+              <div class="alert alert-info mb-2 none" role="alert">
+                Erro ao Tentar Acesso!
+              </div>
+              <div class="wrap d-md-flex">
+                <div
+                  class="img"
+                  style="
+                    background-image: url(assets/img/home.jpg);
+                    background-position: right center;
+                  "
+                ></div>
+                <div class="login-wrap p-4 p-md-5">
+                  <div class="d-flex">
+                    <div class="w-100">
+                      <h3 class="mb-4 login-text">Login</h3>
+                    </div>
+                  </div>
+                  <div class="login-section">
+                    <div class="signin-form">
+                      <div class="form-group mb-3">
+                        <label class="label" for="email">Email</label>
+                        <input
+                          type="email"
+                          name="email"
+                          class="form-control"
+                          placeholder="Username"
+                          required
+                        />
+                      </div>
+                      <div class="form-group mb-3">
+                        <label class="label" for="password">Senha</label>
+                        <input
+                          type="password"
+                          name="password"
+                          class="form-control"
+                          placeholder="Password"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <button
+                          onclick="logIn()"
+                          type="submit"
+                          class="form-control btn btn-primary rounded submit px-3"
+                        >
+                          Entrar
+                        </button>
+                      </div>
+                      <div class="form-group d-md-flex">
+                        <div class="w-50 text-left">
+                          <label class="checkbox-wrap checkbox-primary mb-0"
+                            >Lembrar de mim
+                            <input type="checkbox" checked />
+                            <span class="checkmark"></span>
+                          </label>
+                        </div>
+                        <div class="w-50 text-md-right">
+                          <a class="cursor-pointer" onclick="recoverPass()">Esqueci a Senha</a>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="text-center">
+                      Não está cadastrado?
+                      <a onclick="changeCadLogin(true)" data-toggle="tab" class="cursor-pointer">Cadastre-se</a>
+                    </p>
+                  </div>
+                  <!------------------------------------- PRONTUARIO COMEÇA AQUI ---------------------------------------------------------->
+                  <div class="cad-section none">
+                    <div class="signin-form">
+                      <div class="form-group mb-3">
+                        <label class="label" for="cad-nome">Nome</label>
+                        <input
+                          type="text"
+                          name="cad-nome"
+                          class="form-control"
+                          placeholder="Nome"
+                          required
+                        />
+                      </div>
+                      <div id="hidden">
+                          <div class="form-group mb-3">
+                            <label class="label" for="cad-email">Email</label>
+                            <input
+                              type="email"
+                              name="cad-email"
+                              class="form-control"
+                              placeholder="Email"
+                              required
+                            />
+                          </div>
+                          <div class="form-group mb-3">
+                            <label class="label" for="cad-sex">Sexo</label>
+                            <div class="form-check">
+                              <input class="form-check-input" value="masculino" type="radio" name="cad-sexo">
+                              <label class="form-check-label" for="sexo">Masculino</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" value="feminino" type="radio" name="cad-sexo">
+                              <label class="form-check-label" for="sexo">Feminino</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" value="x" type="radio" name="cad-sexo">
+                              <label class="form-check-label" for="sexo">Prefiro Não dizer</label>
+                            </div>
+                          </div>
+                          <div class="form-group mb-3">
+                            <label class="label" for="cad-limitacoes">Limitações</label>
+                            <div class="form-check">
+                              <input class="form-check-input" name="cad-limitacoes" type="checkbox" value="cognitiva">
+                              <label class="form-check-label" for="cad-limitacoes">
+                                Cognitiva
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" name="cad-limitacoes" type="checkbox" value="locomocao">
+                              <label class="form-check-label" for="cad-limitacoes">
+                                Locomoção
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" name="cad-limitacoes" type="checkbox" value="audicao">
+                              <label class="form-check-label" for="cad-limitacoes">
+                                Audição
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" name="cad-limitacoes" type="checkbox" value="visao">
+                              <label class="form-check-label" for="cad-limitacoes">
+                                Visão
+                              </label>
+                            </div>
+                          </div>
+                          <div class="form-group mb-3">
+                            <label class="label" for="email">Alergia para Medicamentos</label>
+                            <textarea name="cad-alergia" class="form-control"></textarea>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                        <button
+                          id="consult"
+                          type="submit"
+                          class="form-control btn btn-primary rounded submit px-3"
+                          onclick="showHidden()"
+                        >
+                            Consultar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+</body>
+
+</html>

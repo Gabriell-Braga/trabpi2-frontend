@@ -1,3 +1,9 @@
+const db = firebase.firestore();
+const colecao = db.collection('usuarios');
+const documento = db.doc('usuarios/35PUCiPo7rgMrVnL1l1N');
+
+
+
 function initializeApp() {
   $(".alert").hide();
   const firebaseConfig = {
@@ -53,6 +59,7 @@ function recoverPass() {
 }
 
 function Cad() {
+  
   if (validateCadastro()) {
     mostrarLoading();
     const nome = $('input[name="cad-nome"]').val();
@@ -63,6 +70,11 @@ function Cad() {
         return $(this).val();
       }).get();
     const alergia = $('textarea[name="cad-alergia"]').val();
+    const data = {
+      nome: nome,
+      email: email,
+      limitacoes: limitacoes
+    }
     firebase.auth().createUserWithEmailAndPassword(email, senha)
     .then((userCredential) => {
       // Obtém a referência do usuário criado
@@ -76,6 +88,8 @@ function Cad() {
           alergia: alergia
         }
       });
+
+      documento.set(data);
 
       // Atualiza o perfil do usuário com os dados adicionais
       return user.updateProfile({
@@ -96,5 +110,9 @@ function Cad() {
         removerLoading();
         showDangerAlert(errorMessage(error.code));
     });
+
+
+    
+    
   }
 }

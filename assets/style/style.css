@@ -43,6 +43,10 @@
   .none{
     display: none;
   }
+   
+  #hidden{
+    display: none;
+  }
   
  :root {
     --blue: #007bff;
