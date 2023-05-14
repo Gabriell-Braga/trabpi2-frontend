@@ -6,18 +6,48 @@
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="assets/style/styleConsultas.css">
 	<style>
 		.container {
 			margin-top: 50px;
 		}
+
+		.table-bordered th,
+		.table-bordered td {
+			border: 1px solid #000000; /* Cor das linhas pretas */
+		}
 	</style>
 </head>
+
+<nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+	<a class="navbar-brand" href="#">Logo</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+		aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarNav">
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item">
+				<a class="nav-link" href="criar_consultas.html">Marcar Consulta</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Botão 2</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Botão 3</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+
 <body>
+	
 	<div class="container">
 		<h2>Consultas</h2>
-		<table class="table">
+		<table class="table table-bordered">
 			<thead>
 				<tr>
+					<th>Nome</th>
 					<th>CPF</th>
 					<th>Idade</th>
 					<th>Dia da Consulta</th>
@@ -29,6 +59,16 @@
 			</tbody>
 		</table>
 	</div>
+
+   <!-- <div class="text-center">
+        <div class="form-group d-inline-block">
+            <label for="inputCPF">Pesquisar por CPF:</label>
+            <input type="text" class="form-control form-control-sm" id="inputCPF" placeholder="Digite o CPF">
+            <button type="button" class="btn btn-primary btn-sm" onclick="pesquisarConsulta()">Pesquisar</button>
+        </div>
+    </div>-->
+
+
 
 	<script type="module">
 		import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
@@ -77,6 +117,7 @@
 		}
 
 		listarConsultas();
+
 	</script>
 </body>
 </html>
