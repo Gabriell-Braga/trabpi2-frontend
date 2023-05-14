@@ -54,10 +54,32 @@
         const sintomas = document.getElementById('sintomas').value;
 
         // Objeto com os dados da consulta
-        if (!isDataValida(diaConsulta)) {
-            console.log('Data inválida. A consulta deve ser agendada para um dia posterior ou igual ao dia atual.');
-        return;
-        }
+
+            if (!isDataValida(diaConsulta)) {
+            const alertContainer = document.getElementById('alertContainer');
+            const alertDiv = document.createElement('div');
+            alertDiv.classList.add('alert', 'alert-danger');
+            alertDiv.textContent = 'Data inválida. A consulta deve ser agendada para um dia posterior ou igual ao dia atual.';
+            alertContainer.appendChild(alertDiv);
+            return;
+            }else {
+                const alertContainer = document.getElementById('alertContainer');
+                alertContainer.innerHTML = '';
+            }
+
+            if (idade < 18) {
+                const alertContainer = document.getElementById('alertContainerIdade');
+                const alertDiv = document.createElement('div');
+                alertDiv.classList.add('alert', 'alert-danger');
+                alertDiv.textContent = 'Não é possível agendar a consulta. O paciente é menor de idade.';
+                alertContainer.appendChild(alertDiv);
+                return;
+            }else {
+                const alertContainer = document.getElementById('alertContainerIdade');
+                alertContainer.innerHTML = '';
+            }
+
+        
 
 
         const consultaData = {
@@ -99,7 +121,6 @@
 
     <script type="module" src="assets/js/firebase.js"></script>-->
 
-
     <div class="container">
       <h2>Formulário de Consulta</h2>
       <form id="consultaForm">
@@ -115,9 +136,12 @@
               <label for="idade">Idade:</label>
               <input type="number" class="form-control" id="idade" name="idade" placeholder="Digite a Idade" required>
           </div>
+             <div id="alertContainerIdade"></div>
+
           <div class="form-group">
               <label for="diaConsulta">Dia da Consulta:</label>
               <input type="date" class="form-control" id="diaConsulta" name="diaConsulta" required>
+              <div id="alertContainer"></div>
           </div>
           <div class="form-group">
               <label for="medico">Médico:</label>
