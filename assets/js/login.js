@@ -13,6 +13,12 @@ function initializeApp() {
 
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
+
+  // firebase.auth().onAuthStateChanged(user => {
+  //   if(user){
+  //       window.location.href = "consultas.html";
+  //   }
+  // })
 }
 
 function logIn() {
@@ -68,29 +74,33 @@ function Cad() {
       // Obtém a referência do usuário criado
       const user = userCredential.user;
 
-      console.log({
-        displayName: nome,
-        customData: {
-          sexo: sexo,
-          limitacoes: limitacoes,
-          alergia: alergia
-        }
-      });
-
-      // Atualiza o perfil do usuário com os dados adicionais
+      // Atualiza o perfil do usuário com o nome
       return user.updateProfile({
-        displayName: nome,
-        customData: {
-          sexo: sexo,
-          limitacoes: limitacoes,
-          alergia: alergia
-        }
+        displayName: nome
       });
     })
     .then(() => {
+      // Adiciona os dados personalizados no Realtime Database
+      const user = firebase.auth().currentUser;
+      const db = firebase.firestore();
+      const usersCollection = db.collection('usuarios');
+      
+      const userData = {
+        sexo: sexo,
+        limitacoes: limitacoes,
+        alergia: alergia,
+        userId: user.uid
+      }
+
+      // Salva os dados adicionais no documento do usuário
+      usersCollection.add(userData).then((dados) => {
         changeCadLogin(false);
         showInfoAlert('Usuario Criado com Sucesso!');
         removerLoading();
+      }).catch((error) => {
+        removerLoading();
+        showDangerAlert(errorMessage(error.code));
+      });
     })
     .catch((error) => {
         removerLoading();
