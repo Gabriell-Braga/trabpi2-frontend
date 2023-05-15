@@ -38,6 +38,62 @@ function errorMessage(codigoErro) {
   return mensagem;
 }
 
+function init(){
+  mostrarLoading();
+    $(".alert").hide();
+    const firebaseConfig = {
+      apiKey: "AIzaSyAgD8XTf6Phg5bInu-D1RxW5nNSdjkZANs",
+      authDomain: "medinet-827ad.firebaseapp.com",
+      databaseURL: "https://medinet-827ad-default-rtdb.firebaseio.com",
+      projectId: "medinet-827ad",
+      storageBucket: "medinet-827ad.appspot.com",
+      messagingSenderId: "52310695996",
+      appId: "1:52310695996:web:2d71e891702b1aa0e92339",
+      measurementId: "G-56M8KYD721",
+    };
+  
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  
+    firebase.auth().onAuthStateChanged(user => {
+      if(!user){
+          window.location.href = "index.html";
+      }else{
+        const displayName = user.displayName;
+        const customData = user.customData;
+
+        $('#usuario').text(displayName);
+        removerLoading();
+      }
+    });
+}
+
+function verify(){
+  const db = firebase.firestore();
+      db.collection('usuarios').get()
+          .then(snapshot => {
+              snapshot.docs.forEach(doc => {
+                  if (doc.data().userId == firebase.auth().currentUser.uid) {
+                      var dados = doc.data();
+                      console.log(dados);
+                      if(dados.admin && dados.admin == 1){
+                        $('#sidebar-add').append('<a class="list-group-item list-group-item-action list-group-item-light p-3" href="cadastrar_medico.html">Cadastrar Médico</a>');
+                      }
+                  }
+              });
+              removerLoading();
+      })
+      .catch((error) => {
+          console.log('error', error);
+          removerLoading();
+      }); 
+}
+
+function logout(){
+  firebase.auth().signOut().then(() => {
+      window.location.href = "index.html";
+  });
+}
 
 function mostrarLoading() {
     // Cria o elemento de overlay para a tela de loading
@@ -88,37 +144,66 @@ function mostrarLoading() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   
     if (nome.trim() === "") {
-      showErrorAlert("Por favor, preencha o campo Nome.");
+      showDangerAlert("Por favor, preencha o campo Nome.");
       return false;
     }
   
     if (!email.trim()) {
-      showErrorAlert("Por favor, preencha o campo E-mail.");
+      showDangerAlert("Por favor, preencha o campo E-mail.");
       return false;
     }
   
     if (!emailRegex.test(email)) {
-      showErrorAlert("Por favor, insira um e-mail válido.");
+      showDangerAlert("Por favor, insira um e-mail válido.");
       return false;
     }
   
     if (senha.trim() === "") {
-      showErrorAlert("Por favor, preencha o campo Senha.");
+      showDangerAlert("Por favor, preencha o campo Senha.");
       return false;
     }
   
     if (confirmSenha.trim() === "") {
-      showErrorAlert("Por favor, preencha o campo Confirmar Senha.");
+      showDangerAlert("Por favor, preencha o campo Confirmar Senha.");
       return false;
     }
   
     if (senha !== confirmSenha) {
-      showErrorAlert("As senhas informadas não coincidem.");
+      showDangerAlert("As senhas informadas não coincidem.");
       return false;
     }
   
     if (!sexo) {
-      showErrorAlert("Por favor, selecione uma opção de Sexo.");
+      showDangerAlert("Por favor, selecione uma opção de Sexo.");
+      return false;
+    }
+  
+    return true;
+  }
+
+  function validateCadastroMedico() {
+    const nome = $('input[name="cad-nome"]').val();
+    const sexo = $('input[name="cad-sexo"]:checked').val();
+    const crm = $('input[name="cad-crm"]').val();
+    const area = $('select[name="cad-area-atuacao"] option:selected').text();
+  
+    if (nome.trim() === "") {
+      showDangerAlert("Por favor, preencha o campo Nome.");
+      return false;
+    }
+
+    if (crm.trim() === "") {
+      showDangerAlert("Por favor, preencha o campo CRM.");
+      return false;
+    }
+  
+    if (!sexo) {
+      showDangerAlert("Por favor, selecione uma opção de Sexo.");
+      return false;
+    }
+
+    if (area.trim() === "Selecione...") {
+      showDangerAlert("Por favor, preencha a área de Atuação.");
       return false;
     }
   

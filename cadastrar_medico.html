@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User Table UI Design</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/style/style.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="assets/js/js.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="assets/js/medico.js"></script>
+</head>
+
+<body onload="initializeApp()">
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar-->
+        <div class="border-end bg-white" id="sidebar-wrapper">
+            <div class="sidebar-heading border-bottom bg-primary"><img src="assets/img/logo.png" height="75"></div>
+            <div class="list-group list-group-flush" id="sidebar-add">
+                <a class="list-group-item list-group-item-action list-group-item-light p-3"
+                    href="consultas.html">Consultas</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3"
+                    href="cadastrar_consulta.html">Marcar Consulta</a>
+            </div>
+        </div>
+        <!-- Page content wrapper-->
+        <div id="page-content-wrapper">
+            <!-- Top navigation-->
+            <nav class="navbar navbar-expand-lg navbar-primary text-white bg-primary border-bottom">
+                <div class="container-fluid">
+                    <i class="fa fa-bars cursor-pointer" id="sidebarToggle"></i>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation"><span
+                            class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" id="usuario" href="#" role="button"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="prontuario.html">Prontuário</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item cursor-pointer" onclick="logout()">Sair</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- Page content-->
+            <div class="container-fluid mt-4">
+                <section class="main-content">
+                    <div class="signin-form">
+                        <div class="form-group mb-3">
+                            <label class="label" for="cad-nome">Nome</label>
+                            <input type="text" name="cad-nome" class="form-control" placeholder="Nome" required />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="label" for="cad-crm">CRM</label>
+                            <input type="text" name="cad-crm" class="form-control" placeholder="CRM" required />
+                        </div>
+                        <!-- <div class="form-group mb-3">
+                            <label class="label" for="cad-email">Email</label>
+                            <input type="email" name="cad-email" class="form-control" placeholder="Email" required />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="label" for="cad-password">Senha</label>
+                            <input type="password" name="cad-password" class="form-control" placeholder="Senha"
+                                required />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="label" for="confirm-cad-password">Confirme a Senha</label>
+                            <input type="password" name="confirm-cad-password" class="form-control" placeholder="Senha"
+                                required />
+                        </div> -->
+                        <div class="form-group mb-3">
+                            <label class="label" for="cad-sex">Sexo</label>
+                            <div class="form-check">
+                                <input class="form-check-input" value="masculino" type="radio" name="cad-sexo">
+                                <label class="form-check-label" for="sexo">Masculino</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" value="feminino" type="radio" name="cad-sexo">
+                                <label class="form-check-label" for="sexo">Feminino</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" value="x" type="radio" name="cad-sexo">
+                                <label class="form-check-label" for="sexo">Prefiro Não dizer</label>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="label" for="cad-area-atuacao">Área de Atuação</label>
+                            <select required class="form-control" name="cad-area-atuacao">
+                                <option disabled selected value="">Selecione...</option>
+                                <option value="cardiologia">Cardiologia</option>
+                                <option value="dermatologia">Dermatologia</option>
+                                <option value="endocrinologia">Endocrinologia</option>
+                                <option value="ginecologia">Ginecologia</option>
+                                <option value="neurologia">Neurologia</option>
+                                <option value="oftalmologia">Oftalmologia</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <button onclick="cad()" type="submit"
+                                class="form-control btn btn-primary rounded submit px-3">
+                                Cadastrar
+                            </button>
+                        </div>
+                        <div class="alert alert-danger mb-2 none" role="alert">
+                            Erro ao Tentar Acesso!
+                        </div>
+                        <div class="alert alert-info mb-2 none" role="alert">
+                            Erro ao Tentar Acesso!
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

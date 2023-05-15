@@ -58,7 +58,7 @@ function recoverPass() {
   console.log("depois");
 }
 
-function Cad() {
+function cad() {
   if (validateCadastro()) {
     mostrarLoading();
     const nome = $('input[name="cad-nome"]').val();
