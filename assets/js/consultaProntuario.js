@@ -1,44 +1,3 @@
-function errorMessage(codigoErro) {
-  let mensagem;
-
-  switch (codigoErro) {
-    // Erros de login
-    case 'auth/user-not-found':
-      mensagem = 'Usuário não encontrado. Verifique suas credenciais.';
-      break;
-    case 'auth/wrong-password':
-      mensagem = 'Senha incorreta. Verifique suas credenciais.';
-      break;
-    case 'auth/invalid-email':
-      mensagem = 'E-mail inválido. Verifique suas credenciais.';
-      break;
-    case 'auth/user-disabled':
-      mensagem = 'Usuário desativado. Entre em contato com o suporte.';
-      break;
-    case 'auth/operation-not-allowed':
-      mensagem = 'Operação não permitida. Entre em contato com o suporte.';
-      break;
-    case 'auth/too-many-requests':
-      mensagem = 'Muitas tentativas de login. Tente novamente mais tarde.';
-      break;
-    // Erros de cadastro
-    case 'auth/email-already-in-use':
-      mensagem = 'E-mail já está em uso. Escolha outro e tente novamente.';
-      break;
-    case 'auth/weak-password':
-      mensagem = 'Senha fraca. Escolha uma senha mais forte.';
-      break;
-    case 'auth/invalid-email':
-      mensagem = 'E-mail inválido. Verifique o formato do e-mail.';
-      break;
-    default:
-      mensagem = 'Erro no login ou no cadastro. Tente novamente.';
-      break;
-  }
-  return mensagem;
-}
-
-
 function mostrarLoading() {
     // Cria o elemento de overlay para a tela de loading
     const overlay = document.createElement('div');
@@ -68,7 +27,7 @@ function mostrarLoading() {
     $(".alert-info").hide();
     $(".alert-danger").hide();
     if(ver){
-      $('.login-text').text('Cadastrar');
+      $('.login-text').text('Consultar Prontuario Médico');
       $('.cad-section').fadeIn();
       $('.login-section').hide();
     }else{
@@ -140,22 +99,9 @@ function mostrarLoading() {
     const alertOffset = $(".alert-danger").offset().top;
     $("html, body").scrollTop(alertOffset);
   }
+
+ function showHidden(){
+    document.getElementById("hidden").style.display = "block"
+
+  }
   
-  window.addEventListener('DOMContentLoaded', event => {
-
-    // Toggle the side navigation
-    const sidebarToggle = document.body.querySelector('#sidebarToggle');
-    if (sidebarToggle) {
-        // Uncomment Below to persist sidebar toggle between refreshes
-        // if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
-        //     document.body.classList.toggle('sb-sidenav-toggled');
-        // }
-        sidebarToggle.addEventListener('click', event => {
-            event.preventDefault();
-            document.body.classList.toggle('sb-sidenav-toggled');
-            localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
-        });
-    }
-
-});
-
