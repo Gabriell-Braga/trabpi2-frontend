@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>User Table UI Design</title>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="assets/js/js.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="assets/js/prontuario.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/style/style.css">
+</head>
+<body onload="initializeApp()">
+	<div class="d-flex" id="wrapper">
+		<!-- Sidebar-->
+		<div class="border-end bg-white" id="sidebar-wrapper">
+			<div class="sidebar-heading border-bottom bg-primary"><img src="assets/img/logo.png" height="75"></div>
+			<div class="list-group list-group-flush">
+				<a class="list-group-item list-group-item-action list-group-item-light p-3" href="consultas.html">Consultas</a>
+				<a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Marcar Consulta</a>
+			</div>
+		</div>
+		<!-- Page content wrapper-->
+		<div id="page-content-wrapper">
+			<!-- Top navigation-->
+			<nav class="navbar navbar-expand-lg navbar-primary text-white bg-primary border-bottom">
+				<div class="container-fluid">
+					<i class="fa fa-bars cursor-pointer" id="sidebarToggle"></i>
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle text-white" id="usuario" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+								<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+									<a class="dropdown-item active" href="prontuario.html">Prontuário</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item cursor-pointer" onclick="logout()">Sair</a>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+			<div class="container">
+                <h2>Formulário de Consulta</h2>
+                <form id="consultaForm">
+                      <div class="form-group">
+                          <label for="nome">Nome:</label>
+                          <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o seu nome" required>
+                      </div>
+                    <div class="form-group">
+                        <label for="cpf">CPF:</label>
+                        <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Digite o CPF" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="idade">Idade:</label>
+                        <input type="number" class="form-control" id="idade" name="idade" placeholder="Digite a Idade" required>
+                    </div>
+                       <div id="alertContainerIdade"></div>
+          
+                    <div class="form-group">
+                        <label for="diaConsulta">Dia da Consulta:</label>
+                        <input type="date" class="form-control" id="diaConsulta" name="diaConsulta" required>
+                        <div id="alertContainer"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="medico">Médico:</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="medico" id="marta" value="Marta" required>
+                            <label class="form-check-label" for="marta">Marta</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="medico" id="luiz" value="Luiz" required>
+                            <label class="form-check-label" for="luiz">Luiz</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="medico" id="pedro" value="Pedro" required>
+                            <label class="form-check-label" for="pedro">Pedro</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sintomas">O que está sentindo:</label>
+                        <textarea class="form-control" id="sintomas" name="sintomas" placeholder="Digite os sintomas" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="background-color: #45bccc;">Enviar</button>
+                </form>
+            </div>
+          
+			
+	</div>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
