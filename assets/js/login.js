@@ -86,6 +86,7 @@ function cad() {
       const usersCollection = db.collection('usuarios');
       
       const userData = {
+        nome: nome,
         sexo: sexo,
         limitacoes: limitacoes,
         alergia: alergia,
