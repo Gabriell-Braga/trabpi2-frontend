@@ -20,7 +20,7 @@ $(document).ready(function() {
 
 function exibirProntuarios() {
   const consultasRef = firebase.firestore().collection("usuarios");
-  consultasRef.where("nome", "==", $("#inputNome").val()).get().then((querySnapshot) => {
+  consultasRef.get().then((querySnapshot) => {
     // Limpar o corpo da tabela antes de exibir os dados
     const tabelaConsultas = document.getElementById("tabela-consultas-body");
     tabelaConsultas.innerHTML = "";
@@ -28,29 +28,28 @@ function exibirProntuarios() {
     querySnapshot.forEach((doc) => {
       const consulta = doc.data();
 
-      // Criar uma nova linha na tabela para cada consulta
-      const novaLinha = document.createElement("tr");
+      if(consulta.nome && consulta.nome.includes($("#inputNome").val().toLowerCase())){
+        // Criar uma nova linha na tabela para cada consulta
+        const novaLinha = document.createElement("tr");
 
-      // Criar células para cada campo da consulta
-      const nomeCelula = document.createElement("td");
-      const sexoCelula = document.createElement("td");
-      const limitacoesCelula = document.createElement("td");
-      const alergiaCelula = document.createElement("td");
+        // Criar células para cada campo da consulta
+        const nomeCelula = document.createElement("td");
+        const sexoCelula = document.createElement("td");
+        const botaoCelula = document.createElement("td");
 
-      // Definir o conteúdo das células com os dados da consulta
-      nomeCelula.textContent = consulta.nome;
-      sexoCelula.textContent = consulta.sexo;
-      limitacoesCelula.textContent = consulta.limitacoes;
-      alergiaCelula.textContent = consulta.alergia;
+        // Definir o conteúdo das células com os dados da consulta
+        nomeCelula.textContent = consulta.nome.charAt(0).toUpperCase() + consulta.nome.slice(1);
+        sexoCelula.textContent = consulta.sexo.charAt(0).toUpperCase() + consulta.sexo.slice(1);
+        botaoCelula.innerHTML = '<a href="prontuario.html?uid='+consulta.userId+'" class="btn btn-primary">Prontuário</a>';
 
-      // Adicionar as células à linha
-      novaLinha.appendChild(nomeCelula);
-      novaLinha.appendChild(sexoCelula);
-      novaLinha.appendChild(limitacoesCelula);
-      novaLinha.appendChild(alergiaCelula);
+        // Adicionar as células à linha
+        novaLinha.appendChild(nomeCelula);
+        novaLinha.appendChild(sexoCelula);
+        novaLinha.appendChild(botaoCelula);
 
-      // Adicionar a linha ao corpo da tabela
-      tabelaConsultas.appendChild(novaLinha);
+        // Adicionar a linha ao corpo da tabela
+        tabelaConsultas.appendChild(novaLinha);
+      }
     });
   });
   removerLoading();
