@@ -59,26 +59,3 @@ function logout() {
 }
 
 
-//FUNÇÃO PARA O MEDICO CONSULTAR
-$(document).ready(function () {
-    $("#btnSLA").click(function () {
-        // código a ser executado quando o botão for clicado
-        const db = firebase.firestore();
-        db.collection('usuarios').get()
-            .then(snapshot => {
-                snapshot.docs.forEach(doc => {
-                    if (doc.data().nome == $("#inputNome").val()) {
-                        var dados = doc.data();
-                        $('input[name="cad-nome"]').val($("#inputNome").val());
-                        if (dados.sexo == 'masculino') {
-                            $('#masculino').prop('checked', true);
-                        } else if (dados.sexo == 'feminino') {
-                            $('#feminino').prop('checked', true);
-                        }
-                        $('textarea[name="cad-alergia"]').val(dados.alergia);
-                    } 
-                });
-            });
-        })
-}
-)

@@ -13,7 +13,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script src="assets/js/prontuario.js"></script>
+    <script src="assets/js/consultaProntuario.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/style/style.css">
@@ -80,30 +80,48 @@
                             <label class="form-check-label" for="sexo">Prefiro Não dizer</label>
                           </div>
                         </div>
+
+
                         <div class="form-group mb-3">
                           <label class="label" for="cad-limitacoes">Limitações</label>
                           <div class="form-check">
-                            <input disabled class="form-check-input" name="cad-limitacoes" type="checkbox" value="cognitiva">
+                            <input disabled 
+                            id="cognitiva"
+                            class="form-check-input" name="cad-limitacoes" type="checkbox" value="cognitiva">
                             <label class="form-check-label" for="cad-limitacoes">
                               Cognitiva
                             </label>
                           </div>
                           <div class="form-check">
-                            <input disabled class="form-check-input" name="cad-limitacoes" type="checkbox" value="locomocao">
+                            <input disabled 
+                            id="locomocao"
+                            class="form-check-input" name="cad-limitacoes" type="checkbox" value="locomocao">
                             <label class="form-check-label" for="cad-limitacoes">
                               Locomoção
                             </label>
                           </div>
                           <div class="form-check">
-                            <input disabled class="form-check-input" name="cad-limitacoes" type="checkbox" value="audicao">
+                            <input disabled 
+                            id="audicao"
+                            class="form-check-input" name="cad-limitacoes" type="checkbox" value="audicao">
                             <label class="form-check-label" for="cad-limitacoes">
                               Audição
                             </label>
                           </div>
                           <div class="form-check">
-                            <input disabled class="form-check-input" name="cad-limitacoes" type="checkbox" value="visao">
+                            <input disabled 
+                            id="visao"
+                            class="form-check-input" name="cad-limitacoes" type="checkbox" value="visao">
                             <label class="form-check-label" for="cad-limitacoes">
                               Visão
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input disabled 
+                            id="Nenhum"
+                            class="form-check-input" name="cad-limitacoes" type="checkbox" value="Nenhum">
+                            <label class="form-check-label" for="cad-limitacoes">
+                              Nenhum
                             </label>
                           </div>
                         </div>
@@ -112,7 +130,8 @@
                           <textarea readonly name="cad-alergia" class="form-control"></textarea>
                         </div>
                       </div>
-                      <button id="btnSLA">sla</button>
+                      <button id="btnSLA">Consultar</button>
+                      <button id="resetar">Limpar</button>
 				</section>
 			</div>
 		</div>
