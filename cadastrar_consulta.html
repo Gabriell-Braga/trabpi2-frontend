@@ -29,6 +29,7 @@
                     href="consultas.html">Consultas</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3 active"
                     href="cadastrar_consulta.html">Marcar Consulta</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="consultarProntuario.html">Consultar Prontuario</a>
             </div>
         </div>
         <!-- Page content wrapper-->
@@ -65,14 +66,15 @@
                         <input type="date" class="form-control" id="diaConsulta" name="diaConsulta" required>
                     </div>
                     <div class="form-group">
-                        <select id="medicos-select"></select>
+                        <label for="medicos-select">Médico</label>
+                        <select class="form-control" id="medicos-select"></select>
                     </div>
                     <div class="form-group">
                         <label for="sintomas">O que está sentindo:</label>
                         <textarea class="form-control" id="sintomas" name="sintomas" placeholder="Digite os sintomas"
                             required></textarea>
                     </div>
-                    <button onclick="cadastrarConsulta()" class="btn btn-primary" style="background-color: #45bccc;">Enviar</button>
+                    <button onclick="cadastrarConsulta()" class="form-control btn btn-primary rounded submit px-3">Enviar</button>
                 </form>
                 <div id="mensagemSucesso"></div>
             </div>

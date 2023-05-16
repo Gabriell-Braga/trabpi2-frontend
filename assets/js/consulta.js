@@ -1,11 +1,16 @@
 function initializeApp() {
     init();
     verify();
-    exibirConsultas();
+    mostrarLoading();
+    firebase.auth().onAuthStateChanged(user => {
+      if(user){
+        const displayName = user.displayName;
+        exibirConsultas(displayName);
+      }
+    });
 }
 
-function exibirConsultas() {
-     const nome =  firebase.auth().currentUser.displayName;
+function exibirConsultas(nome) {
     const consultasRef = firebase.firestore().collection("consultas");
     consultasRef.where("nome", "==", nome).get().then((querySnapshot) => {
       // Limpar o corpo da tabela antes de exibir os dados
@@ -40,6 +45,7 @@ function exibirConsultas() {
         tabelaConsultas.appendChild(novaLinha);
       });
     });
+    removerLoading();
   }
   
  
