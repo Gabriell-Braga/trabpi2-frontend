@@ -47,7 +47,7 @@ function recoverPass() {
     .auth()
     .sendPasswordResetEmail(email)
     .then((response) => {
-        showInfoAlert('Email Enviado com Sucesso!');
+      showInfoAlert('Email Enviado com Sucesso!');
       removerLoading();
     })
     .catch((error) => {
@@ -55,7 +55,6 @@ function recoverPass() {
       showDangerAlert(errorMessage(error.code));
       removerLoading();
     });
-  console.log("depois");
 }
 
 function cad() {
