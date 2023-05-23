@@ -1,225 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>MediNet</title>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link rel="stylesheet" href="assets/style/style.css" />
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="assets/js/js.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
-    <script src="assets/js/login.js"></script>
-  </head>
-  <body onload="initializeApp()">
-    <section class="ftco-section">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-12 col-lg-10">
-            <div class="alert alert-danger mb-2 none" role="alert">
-              Erro ao Tentar Acesso!
-            </div>
-            <div class="alert alert-info mb-2 none" role="alert">
-              Erro ao Tentar Acesso!
-            </div>
-            <div class="wrap d-md-flex">
-              <div
-                class="img"
-                style="
+<head>
+  <title>MediNet</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="assets/style/style.css" />
+  <script src="js/jquery.min.js"></script>
+  <script src="js/popper.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="assets/js/js.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+  <script src="assets/js/login.js"></script>
+</head>
+
+<body onload="initializeApp()">
+  <section class="ftco-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-10">
+          <div class="alert alert-danger mb-2 none" role="alert">
+            Erro ao Tentar Acesso!
+          </div>
+          <div class="alert alert-info mb-2 none" role="alert">
+            Erro ao Tentar Acesso!
+          </div>
+          <div class="wrap d-md-flex">
+            <div class="img" style="
                   background-image: url(assets/img/home.jpg);
                   background-position: right center;
-                "
-              ></div>
-              <div class="login-wrap p-4 p-md-5">
-                <div class="d-flex">
-                  <div class="w-100">
-                    <h3 class="mb-4 login-text">Login</h3>
+                "></div>
+            <div class="login-wrap p-4 p-md-5">
+              <div class="d-flex">
+                <div class="w-100">
+                  <h3 class="mb-4 login-text">Login</h3>
+                </div>
+              </div>
+              <div class="login-section">
+                <div class="signin-form">
+                  <div class="form-group mb-3">
+                    <label class="label" for="email">Email</label>
+                    <input type="email" name="email" class="form-control" placeholder="Username" required />
+                  </div>
+                  <div class="form-group mb-3">
+                    <label class="label" for="password">Senha</label>
+                    <input type="password" name="password" class="form-control" placeholder="Password" required />
+                  </div>
+                  <div class="form-group">
+                    <button onclick="logIn()" type="submit" class="form-control btn btn-primary rounded submit px-3">
+                      Entrar
+                    </button>
+                  </div>
+                  <div class="form-group d-md-flex">
+                    <div class="w-50 text-left">
+                      <label class="checkbox-wrap checkbox-primary mb-0">Lembrar de mim
+                        <input type="checkbox" checked />
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                    <div class="w-50 text-md-right">
+                      <a class="cursor-pointer" onclick="recoverPass()">Esqueci a Senha</a>
+                    </div>
                   </div>
                 </div>
-                <div class="login-section">
-                  <div class="signin-form">
-                    <div class="form-group mb-3">
-                      <label class="label" for="email">Email</label>
-                      <input
-                        type="email"
-                        name="email"
-                        class="form-control"
-                        placeholder="Username"
-                        required
-                      />
+                <p class="text-center">
+                  Não está cadastrado?
+                  <a onclick="changeCadLogin(true)" data-toggle="tab" class="cursor-pointer">Cadastre-se</a>
+                </p>
+              </div>
+
+              <div class="cad-section none">
+                <div class="signin-form">
+                  <div class="form-group mb-3">
+                    <label class="label" for="cad-nome">Nome</label>
+                    <input type="text" name="cad-nome" class="form-control" placeholder="Nome" required />
+                  </div>
+
+
+
+                  <div class="form-group mb-3">
+                    <label class="label" for="cad-email">Email</label>
+                    <input type="email" name="cad-email" class="form-control" placeholder="Email" required />
+                  </div>
+
+                  <div class="form-group mb-3">
+                    <label class="label" for="cad-password">Senha</label>
+                    <input type="password" name="cad-password" class="form-control" placeholder="Senha" required />
+                  </div>
+                  <div class="form-group mb-3">
+                    <label class="label" for="confirm-cad-password">Confirme a Senha</label>
+                    <input type="password" name="confirm-cad-password" class="form-control" placeholder="Senha"
+                      required />
+                  </div>
+                  <div class="form-group mb-3">
+                    <label class="label" for="cad-sex">Sexo</label>
+                    <div class="form-check">
+                      <input class="form-check-input" value="masculino" type="radio" name="cad-sexo">
+                      <label class="form-check-label" for="sexo">Masculino</label>
                     </div>
-                    <div class="form-group mb-3">
-                      <label class="label" for="password">Senha</label>
-                      <input
-                        type="password"
-                        name="password"
-                        class="form-control"
-                        placeholder="Password"
-                        required
-                      />
+                    <div class="form-check">
+                      <input class="form-check-input" value="feminino" type="radio" name="cad-sexo">
+                      <label class="form-check-label" for="sexo">Feminino</label>
                     </div>
-                    <div class="form-group">
-                      <button
-                        onclick="logIn()"
-                        type="submit"
-                        class="form-control btn btn-primary rounded submit px-3"
-                      >
-                        Entrar
-                      </button>
-                    </div>
-                    <div class="form-group d-md-flex">
-                      <div class="w-50 text-left">
-                        <label class="checkbox-wrap checkbox-primary mb-0"
-                          >Lembrar de mim
-                          <input type="checkbox" checked />
-                          <span class="checkmark"></span>
-                        </label>
-                      </div>
-                      <div class="w-50 text-md-right">
-                        <a class="cursor-pointer" onclick="recoverPass()">Esqueci a Senha</a>
-                      </div>
+                    <div class="form-check">
+                      <input class="form-check-input" value="x" type="radio" name="cad-sexo">
+                      <label class="form-check-label" for="sexo">Prefiro Não dizer</label>
                     </div>
                   </div>
-                  <p class="text-center">
-                    Não está cadastrado?
-                    <a onclick="changeCadLogin(true)" data-toggle="tab" class="cursor-pointer">Cadastre-se</a>
-                  </p>
-                </div>
-                <div class="cad-section none">
-                  <div class="signin-form">
-                    <div class="form-group mb-3">
-                      <label class="label" for="cad-nome">Nome</label>
-                      <input
-                        type="text"
-                        name="cad-nome"
-                        class="form-control"
-                        placeholder="Nome"
-                        required
-                      />
+
+
+
+
+
+
+                  <div class="form-group mb-3">
+                    <label class="label" for="cad-limitacoes">Limitações</label>
+                    <div class="form-check">
+                      <input class="form-check-input" name="cad-limitacoes" type="checkbox" value="Cognitiva">
+                      <label class="form-check-label" for="cad-limitacoes">
+                        Cognitiva
+                      </label>
                     </div>
-                    <div class="form-group mb-3">
-                      <label class="label" for="cad-email">Email</label>
-                      <input
-                        type="email"
-                        name="cad-email"
-                        class="form-control"
-                        placeholder="Email"
-                        required
-                      />
+                    <div class="form-check">
+                      <input class="form-check-input" name="cad-limitacoes" type="checkbox" value="Locomoção">
+                      <label class="form-check-label" for="cad-limitacoes">
+                        Locomoção
+                      </label>
                     </div>
-                    <div class="form-group mb-3">
-                      <label class="label" for="cad-password">Senha</label>
-                      <input
-                        type="password"
-                        name="cad-password"
-                        class="form-control"
-                        placeholder="Senha"
-                        required
-                      />
+                    <div class="form-check">
+                      <input class="form-check-input" name="cad-limitacoes" type="checkbox" value="Audição">
+                      <label class="form-check-label" for="cad-limitacoes">
+                        Audição
+                      </label>
                     </div>
-                    <div class="form-group mb-3">
-                      <label class="label" for="confirm-cad-password">Confirme a Senha</label>
-                      <input
-                        type="password"
-                        name="confirm-cad-password"
-                        class="form-control"
-                        placeholder="Senha"
-                        required
-                      />
-                    </div>
-                    <div class="form-group mb-3">
-                      <label class="label" for="cad-sex">Sexo</label>
-                      <div class="form-check">
-                        <input class="form-check-input" value="masculino" type="radio" name="cad-sexo">
-                        <label class="form-check-label" for="sexo">Masculino</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" value="feminino" type="radio" name="cad-sexo">
-                        <label class="form-check-label" for="sexo">Feminino</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" value="x" type="radio" name="cad-sexo">
-                        <label class="form-check-label" for="sexo">Prefiro Não dizer</label>
-                      </div>
+                    <div class="form-check">
+                      <input class="form-check-input" name="cad-limitacoes" type="checkbox" value="Visão">
+                      <label class="form-check-label" for="cad-limitacoes">
+                        Visão
+                      </label>
                     </div>
 
-                    <div class="form-group mb-3">
-                      <label class="label" for="cad-limitacoes">Limitações</label>
-                      <div class="form-check">
-                        <input class="form-check-input" name="cad-limitacoes" type="checkbox" value="Cognitiva">
-                        <label class="form-check-label" for="cad-limitacoes">
-                          Cognitiva
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" name="cad-limitacoes" type="checkbox" value="Locomoção">
-                        <label class="form-check-label" for="cad-limitacoes">
-                          Locomoção
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" name="cad-limitacoes" type="checkbox" value="Audição">
-                        <label class="form-check-label" for="cad-limitacoes">
-                          Audição
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" name="cad-limitacoes" type="checkbox" value="Visão">
-                        <label class="form-check-label" for="cad-limitacoes">
-                          Visão
-                        </label>
-                      </div>
-                      
-                      <div class="form-check">
-                        <input  
-                        id="Nenhum"
-                        class="form-check-input" name="cad-limitacoes" type="checkbox" value="Nenhum">
-                        <label class="form-check-label" for="cad-limitacoes">
-                          Nenhum
-                        </label>
-                      </div>
+                    <div class="form-check">
+                      <input id="Nenhum" class="form-check-input" name="cad-limitacoes" type="checkbox" value="Nenhum">
+                      <label class="form-check-label" for="cad-limitacoes">
+                        Nenhum
+                      </label>
+                    </div>
 
-                    </div>
-                    <div class="form-group mb-3">
-                      <label class="label" for="email">Alergia para Medicamentos</label>
-                      <textarea name="cad-alergia" class="form-control"></textarea>
-                    </div>
-                    <div class="form-group">
-                      <button
-                        onclick="cad()"
-                        type="submit"
-                        class="form-control btn btn-primary rounded submit px-3"
-                      >
-                        Cadastrar
-                      </button>
-                    </div>
                   </div>
-                  <p class="text-center">
-                    Já está cadastrado?
-                    <a onclick="changeCadLogin(false)" data-toggle="tab" class="cursor-pointer">Logar-se</a>
-                  </p>
+
+
+                  <div class="form-group mb-3">
+                    <label class="label" for="cad-alergia">Alergia para Medicamentos</label>
+                    <textarea name="cad-alergia" class="form-control"></textarea>
+                  </div>
+
+
+
+
+                  <div class="form-group">
+                    <button onclick="cad()" type="submit" class="form-control btn btn-primary rounded submit px-3">
+                      Cadastrar
+                    </button>
+
+                  </div>
                 </div>
+                <p class="text-center">
+                  Já está cadastrado?
+                  <a onclick="changeCadLogin(false)" data-toggle="tab" class="cursor-pointer">Logar-se</a>
+                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-  </body>
+    </div>
+  </section>
+</body>
+
 </html>

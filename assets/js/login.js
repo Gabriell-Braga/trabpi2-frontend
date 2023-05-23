@@ -62,13 +62,18 @@ function cad() {
   if (validateCadastro()) {
     mostrarLoading();
     const nome = $('input[name="cad-nome"]').val();
+    const data = $('input[name="cad-nascimento"]').val();
+    const endereco = $('input[name="cad-endereco"]').val();
     const email = $('input[name="cad-email"]').val();
     const senha = $('input[name="cad-password"]').val();
     const sexo = $('input[name="cad-sexo"]:checked').val();
+    const estado_civil = $('input[name="cad-estado"]:checked').val();
     const limitacoes = $('input[name="cad-limitacoes"]:checked').map(function() {
         return $(this).val();
       }).get();
     const alergia = $('textarea[name="cad-alergia"]').val();
+    const doencas = $('textarea[name="cad-doencas"]').val();
+    const cirurgia = $('textarea[name="cad-cirurgia"]').val();
     firebase.auth().createUserWithEmailAndPassword(email, senha)
     .then((userCredential) => {
       // Obtém a referência do usuário criado
@@ -87,9 +92,14 @@ function cad() {
       
       const userData = {
         nome: nome,
+        data: data,
+        endereco: endereco,
         sexo: sexo,
+        estado_civil: estado_civil,
         limitacoes: limitacoes,
         alergia: alergia,
+        doencas: doencas,
+        cirurgia: cirurgia,
         userId: user.uid
       }
 

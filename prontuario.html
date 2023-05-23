@@ -115,6 +115,35 @@
                   required
                 />
               </div>
+
+
+              <div class="form-group mb-3">
+                <label class="label" for="cad-nascimento">Data de nascimento</label>
+                <input
+                type="date"
+                name="cad-nascimento"
+                class="form-control"
+                placeholder="Data de nascimento"
+                required
+                 disabled
+                />
+              </div>
+
+              
+
+              <div class="form-group mb-3">
+                <label class="label" for="cad-endereco">Endereço</label>
+                <input
+                type="text"
+                name="cad-endereco"
+                class="form-control"
+                placeholder="Endereço"
+                required
+                  disabled
+                />
+              </div>
+
+
               <div class="form-group mb-3">
                 <label class="label" for="cad-sex">Sexo</label>
                 <div class="form-check">
@@ -152,6 +181,42 @@
                   >
                 </div>
               </div>
+
+
+              <div class="form-group mb-3">
+
+                      
+
+                <label class="label" for="cad-sex">Estado civil</label>
+                <div class="form-check">
+                  <input class="form-check-input" value="Solteiro" type="radio" name="cad-estado" disabled>
+                  <label class="form-check-label" for="sangue">Solteiro</label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" value="Casado" type="radio" name="cad-estado"  disabled >
+                  <label class="form-check-label" for="sangue">Casado</label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" value="Separado" type="radio" name="cad-estado" disabled>
+                  <label class="form-check-label" for="sangue">Separado</label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" value="Divorciado" type="radio" name="cad-estado" disabled>
+                  <label class="form-check-label" for="sangue">Divorciado</label>
+                </div>
+
+
+                <div class="form-check">
+                  <input class="form-check-input" value="Viúvo" type="radio" name="cad-estado" disabled>
+                  <label class="form-check-label" for="sangue">Viúvo</label>
+                </div>
+
+              </div>
+
+
               <div class="form-group mb-3">
                 <label class="label" for="cad-limitacoes">Limitações</label>
                 <div class="form-check">
@@ -229,6 +294,18 @@
                   class="form-control"
                 ></textarea>
               </div>
+
+              <div class="form-group mb-3">
+                <label class="label" for="cad-doenças">Doenças Crônicas</label>
+                <textarea name="cad-doenças" class="form-control" disabled></textarea>
+              </div>
+
+              <div class="form-group mb-3">
+                <label class="label" for="cad-cirugia">Cirurgias anteriores</label>
+                <textarea name="cad-cirugia" class="form-control" disabled></textarea>
+              </div>
+
+
             </div>
           </section>
         </div>
