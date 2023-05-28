@@ -28,7 +28,7 @@ function exibirProntuarios() {
     querySnapshot.forEach((doc) => {
       const consulta = doc.data();
 
-      if(consulta.nome && consulta.nome.includes($("#inputNome").val().toLowerCase())){
+      if(consulta.nome && consulta.nome.includes($("#inputNome").val())){
         // Criar uma nova linha na tabela para cada consulta
         const novaLinha = document.createElement("tr");
 
