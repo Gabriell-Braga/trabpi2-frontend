@@ -54,7 +54,6 @@
             
             <div class="container">
                 <h2>Formulário de Consulta</h2>
-                <form id="consultaForm">
                     <div class="form-group">
                         <label for="diaConsulta">Dia da Consulta:</label>
                         <input type="datetime-local" class="form-control" id="diaConsulta" name="diaConsulta" required>
@@ -69,8 +68,12 @@
                             required></textarea>
                     </div>
                     <button onclick="cadastrarConsulta()" class="form-control btn btn-primary rounded submit px-3">Enviar</button>
-                </form>
-                <div id="mensagemSucesso"></div>
+                    <div class="alert alert-danger mb-2 none" role="alert">
+                        Erro ao Tentar Acesso!
+                    </div>
+                    <div class="alert alert-info mb-2 none" role="alert">
+                        Erro ao Tentar Acesso!
+                    </div>
             </div>
         </div>
        

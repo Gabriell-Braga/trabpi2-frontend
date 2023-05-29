@@ -33,7 +33,7 @@ function exibirConsultas(nome) {
       // Definir o conteúdo das células com os dados da consulta
       nomeCelula.textContent = consulta.nome;
       dataCelula.textContent = consulta.data;
-      medicoCelula.textContent = consulta.medico;
+      medicoCelula.textContent = consulta.nomeMedico;
       sintomasCelula.textContent = consulta.sintoma;
 
       // Criar o botão de cancelamento
