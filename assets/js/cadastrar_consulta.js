@@ -26,6 +26,7 @@ function carregarMedicos() {
 }
 
 function cadastrarConsulta() {
+  mostrarLoading();
   const db = firebase.firestore();
   const nome = firebase.auth().currentUser.displayName;
   const id = firebase.auth().currentUser.uid;

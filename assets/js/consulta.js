@@ -77,11 +77,11 @@ function cancelarConsulta(consultaId) {
     .then((doc) => {
       if (doc.exists) {
         const consulta = doc.data();
-        const medicoNome = consulta.medico;
+        const medico = consulta.medico;
 
         // Recuperar o médico pelo nome
         const medicosRef = firebase.firestore().collection("medicos");
-        const query = medicosRef.where("nome", "==", medicoNome);
+        const query = medicosRef.where("uid", "==", medico);
 
         query.get().then((querySnapshot) => {
           if (!querySnapshot.empty) {
