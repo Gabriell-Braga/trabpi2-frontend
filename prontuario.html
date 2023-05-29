@@ -34,23 +34,7 @@
         <div class="sidebar-heading border-bottom bg-primary">
           <img src="assets/img/logo.png" height="75" />
         </div>
-        <div class="list-group list-group-flush" id="sidebar-add">
-          <a
-            class="list-group-item list-group-item-action list-group-item-light p-3"
-            href="consultas.html"
-            >Consultas</a
-          >
-          <a
-            class="list-group-item list-group-item-action list-group-item-light p-3"
-            href="cadastrar_consulta.html"
-            >Marcar Consulta</a
-          >
-          <a
-            class="list-group-item list-group-item-action list-group-item-light p-3"
-            href="consultarProntuario.html"
-            >Prontuario medico</a
-          >
-        </div>
+        <div class="list-group list-group-flush" id="sidebar-add"></div>
       </div>
       <!-- Page content wrapper-->
       <div id="page-content-wrapper">
@@ -87,9 +71,7 @@
                     class="dropdown-menu dropdown-menu-end"
                     aria-labelledby="navbarDropdown"
                   >
-                    <a class="dropdown-item active" href="prontuario.html"
-                      >Prontuário</a
-                    >
+                    <div id="dropdown-add"></div>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item cursor-pointer" onclick="logout()"
                       >Sair</a
@@ -103,11 +85,16 @@
         <!-- Page content-->
         <div class="container-fluid mt-4">
           <section class="main-content">
+            <div class="alert alert-danger mb-2 none" role="alert">
+              Erro ao Tentar Acesso!
+            </div>
+            <div class="alert alert-info mb-2 none" role="alert">
+              Erro ao Tentar Acesso!
+            </div>
             <div class="signin-form">
               <div class="form-group mb-3">
                 <label class="label" for="cad-nome">Nome</label>
                 <input
-                  readonly
                   type="text"
                   name="cad-nome"
                   class="form-control"
@@ -116,39 +103,34 @@
                 />
               </div>
 
-
               <div class="form-group mb-3">
-                <label class="label" for="cad-nascimento">Data de nascimento</label>
+                <label class="label" for="cad-nascimento"
+                  >Data de nascimento</label
+                >
                 <input
-                type="date"
-                name="cad-nascimento"
-                class="form-control"
-                placeholder="Data de nascimento"
-                required
-                 disabled
+                  type="date"
+                  name="cad-nascimento"
+                  class="form-control"
+                  placeholder="Data de nascimento"
+                  required
                 />
               </div>
-
-              
 
               <div class="form-group mb-3">
                 <label class="label" for="cad-endereco">Endereço</label>
                 <input
-                type="text"
-                name="cad-endereco"
-                class="form-control"
-                placeholder="Endereço"
-                required
-                  disabled
+                  type="text"
+                  name="cad-endereco"
+                  class="form-control"
+                  placeholder="Endereço"
+                  required
                 />
               </div>
-
 
               <div class="form-group mb-3">
                 <label class="label" for="cad-sex">Sexo</label>
                 <div class="form-check">
                   <input
-                    disabled
                     class="form-check-input"
                     id="masculino"
                     value="masculino"
@@ -159,7 +141,6 @@
                 </div>
                 <div class="form-check">
                   <input
-                    disabled
                     class="form-check-input"
                     id="feminino"
                     value="feminino"
@@ -170,7 +151,7 @@
                 </div>
                 <div class="form-check">
                   <input
-                    disabled
+                    id="outro"
                     class="form-check-input"
                     value="x"
                     type="radio"
@@ -182,46 +163,65 @@
                 </div>
               </div>
 
-
               <div class="form-group mb-3">
-
-                      
-
-                <label class="label" for="cad-sex">Estado civil</label>
+                <label class="label" for="cad-estado">Estado civil</label>
                 <div class="form-check">
-                  <input class="form-check-input" value="Solteiro" type="radio" name="cad-estado" disabled>
+                  <input
+                    class="form-check-input"
+                    value="Solteiro"
+                    type="radio"
+                    name="cad-estado"
+                  />
                   <label class="form-check-label" for="sangue">Solteiro</label>
                 </div>
 
                 <div class="form-check">
-                  <input class="form-check-input" value="Casado" type="radio" name="cad-estado"  disabled >
+                  <input
+                    class="form-check-input"
+                    value="Casado"
+                    type="radio"
+                    name="cad-estado"
+                  />
                   <label class="form-check-label" for="sangue">Casado</label>
                 </div>
 
                 <div class="form-check">
-                  <input class="form-check-input" value="Separado" type="radio" name="cad-estado" disabled>
+                  <input
+                    class="form-check-input"
+                    value="Separado"
+                    type="radio"
+                    name="cad-estado"
+                  />
                   <label class="form-check-label" for="sangue">Separado</label>
                 </div>
 
                 <div class="form-check">
-                  <input class="form-check-input" value="Divorciado" type="radio" name="cad-estado" disabled>
-                  <label class="form-check-label" for="sangue">Divorciado</label>
+                  <input
+                    class="form-check-input"
+                    value="Divorciado"
+                    type="radio"
+                    name="cad-estado"
+                  />
+                  <label class="form-check-label" for="sangue"
+                    >Divorciado</label
+                  >
                 </div>
-
 
                 <div class="form-check">
-                  <input class="form-check-input" value="Viúvo" type="radio" name="cad-estado" disabled>
+                  <input
+                    class="form-check-input"
+                    value="Viúvo"
+                    type="radio"
+                    name="cad-estado"
+                  />
                   <label class="form-check-label" for="sangue">Viúvo</label>
                 </div>
-
               </div>
-
 
               <div class="form-group mb-3">
                 <label class="label" for="cad-limitacoes">Limitações</label>
                 <div class="form-check">
                   <input
-                    disabled
                     class="form-check-input"
                     id="cognitiva"
                     name="cad-limitacoes"
@@ -234,7 +234,6 @@
                 </div>
                 <div class="form-check">
                   <input
-                    disabled
                     class="form-check-input"
                     id="locomocao"
                     name="cad-limitacoes"
@@ -247,7 +246,6 @@
                 </div>
                 <div class="form-check">
                   <input
-                    disabled
                     class="form-check-input"
                     id="audicao"
                     name="cad-limitacoes"
@@ -260,7 +258,6 @@
                 </div>
                 <div class="form-check">
                   <input
-                    disabled
                     class="form-check-input"
                     id="visao"
                     name="cad-limitacoes"
@@ -273,7 +270,6 @@
                 </div>
                 <div class="form-check">
                   <input
-                    disabled
                     class="form-check-input"
                     name="cad-limitacoes"
                     type="checkbox"
@@ -288,26 +284,116 @@
                 <label class="label" for="email"
                   >Alergia para Medicamentos</label
                 >
-                <textarea
-                  readonly
-                  name="cad-alergia"
-                  class="form-control"
-                ></textarea>
+                <textarea name="cad-alergia" class="form-control"></textarea>
               </div>
 
               <div class="form-group mb-3">
                 <label class="label" for="cad-doenças">Doenças Crônicas</label>
-                <textarea name="cad-doenças" class="form-control" disabled></textarea>
+                <textarea name="cad-doenças" class="form-control"></textarea>
               </div>
 
               <div class="form-group mb-3">
-                <label class="label" for="cad-cirugia">Cirurgias anteriores</label>
-                <textarea name="cad-cirugia" class="form-control" disabled></textarea>
+                <label class="label" for="cad-cirugia"
+                  >Cirurgias anteriores</label
+                >
+                <textarea name="cad-cirugia" class="form-control"></textarea>
               </div>
 
+              <h4>Consultas</h4>
+              <table class="table" id="tabela-consultas">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Data</th>
+                    <th>Médico</th>
+                    <th>Sintomas</th>
+                  </tr>
+                </thead>
+                <tbody id="tabela-consultas-body">
+                  <!-- As linhas serão adicionadas dinamicamente aqui -->
+                </tbody>
+              </table>
+              <br>
+              <hr>
+              <br>
+              <h4>Observações</h4>
+              <table class="table" id="tabela-obs">
+                <thead>
+                  <tr>
+                    <th>Tipo</th>
+                    <th>Data</th>
+                    <th>Observação</th>
+                  </tr>
+                </thead>
+                <tbody id="tabela-obs-body">
+                  <!-- As linhas serão adicionadas dinamicamente aqui -->
+                </tbody>
+              </table>
 
+              <div class="form-group">
+                <button
+                  onclick="salvar()"
+                  type="submit"
+                  class="form-control btn btn-primary rounded submit px-3"
+                >
+                  Salvar
+                </button>
+                <br>
+                <br>
+                <button
+                  id="obs-btn"
+                  data-bs-toggle="modal" data-bs-target="#modal"
+                  type="button"
+                  class="form-control btn btn-primary rounded submit px-3"
+                >
+                  Adicionar Observação
+                </button>
+              </div>
             </div>
           </section>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Observações</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group mb-3">
+              <label class="label" for="cad-tipoo">Tipo</label>
+              <select required class="form-control" name="cad-tipo">
+                  <option disabled selected value="">Selecione...</option>
+                  <option value="Médica">Observação Médica</option>
+                  <option value="Pessoal">Observação Pessoal</option>
+              </select>
+          </div>
+            <div class="form-group mb-3">
+              <label class="label" for="cad-data"
+                >Data da Observação</label
+              >
+              <input
+                type="date"
+                name="cad-data"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="form-group mb-3">
+              <label class="label" for="cad-obs"
+                >Observações</label
+              >
+              <textarea name="cad-obs" class="form-control"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" onclick="salvarObs()" class="btn btn-primary">Salvar Observação</button>
+          </div>
         </div>
       </div>
     </div>

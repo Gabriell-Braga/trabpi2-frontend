@@ -74,6 +74,39 @@ function verify() {
       snapshot.docs.forEach((doc) => {
         if (doc.data().userId == firebase.auth().currentUser.uid) {
           var dados = doc.data();
+          $("#sidebar-add").append(
+            '<a class="list-group-item list-group-item-action list-group-item-light p-3" href="consultas.html">Consultas</a>'+
+            '<a class="list-group-item list-group-item-action list-group-item-light p-3" href="cadastrar_consulta.html">Marcar Consulta</a>'
+          );
+          $("#dropdown-add").append(
+            '<a class="dropdown-item" href="prontuario.html">Prontuário</a>'
+          );
+          if (dados.admin && dados.admin == 1) {
+            $("#sidebar-add").append(
+              '<a class="list-group-item list-group-item-action list-group-item-light p-3" href="cadastrar_medico.html">Cadastrar Médico</a>'
+            );
+          }
+        }
+      });
+      removerLoading();
+    })
+    .catch((error) => {
+      console.log("error", error);
+      removerLoading();
+    });
+
+    db.collection("medicos")
+    .get()
+    .then((snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        if (doc.data().uid == firebase.auth().currentUser.uid) {
+          var dados = doc.data();
+          $("#sidebar-add").append(
+            '<a class="list-group-item list-group-item-action list-group-item-light p-3" href="consultarProntuario.html">Prontuario medico</a>'
+          );
+          $("#dropdown-add").append(
+            '<a class="dropdown-item" href="perfil.html">Perfil</a>'
+          );
           if (dados.admin && dados.admin == 1) {
             $("#sidebar-add").append(
               '<a class="list-group-item list-group-item-action list-group-item-light p-3" href="cadastrar_medico.html">Cadastrar Médico</a>'
@@ -189,6 +222,66 @@ function validateCadastroMedico() {
   const sexo = $('input[name="cad-sexo"]:checked').val();
   const crm = $('input[name="cad-crm"]').val();
   const area = $('select[name="cad-area-atuacao"] option:selected').text();
+  const email = $('input[name="cad-email"]').val();
+  const senha = $('input[name="cad-password"]').val();
+  const confirmSenha = $('input[name="confirm-cad-password"]').val();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (nome.trim() === "") {
+    showDangerAlert("Por favor, preencha o campo Nome.");
+    return false;
+  }
+  
+  if (!email.trim()) {
+    showDangerAlert("Por favor, preencha o campo E-mail.");
+    return false;
+  }
+
+  if (!emailRegex.test(email)) {
+    showDangerAlert("Por favor, insira um e-mail válido.");
+    return false;
+  }
+
+  if (senha.trim() === "") {
+    showDangerAlert("Por favor, preencha o campo Senha.");
+    return false;
+  }
+
+  if (confirmSenha.trim() === "") {
+    showDangerAlert("Por favor, preencha o campo Confirmar Senha.");
+    return false;
+  }
+
+  if (senha !== confirmSenha) {
+    showDangerAlert("As senhas informadas não coincidem.");
+    return false;
+  }
+
+
+  if (crm.trim() === "") {
+    showDangerAlert("Por favor, preencha o campo CRM.");
+    return false;
+  }
+
+  if (!sexo) {
+    showDangerAlert("Por favor, selecione uma opção de Sexo.");
+    return false;
+  }
+
+  if (area.trim() === "Selecione...") {
+    showDangerAlert("Por favor, preencha a área de Atuação.");
+    return false;
+  }
+
+  return true;
+}
+
+function validateUpdateMedico() {
+  const nome = $('input[name="cad-nome"]').val();
+  const sexo = $('input[name="cad-sexo"]:checked').val();
+  const crm = $('input[name="cad-crm"]').val();
+  const area = $('select[name="cad-area-atuacao"] option:selected').text();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (nome.trim() === "") {
     showDangerAlert("Por favor, preencha o campo Nome.");
@@ -213,10 +306,70 @@ function validateCadastroMedico() {
   return true;
 }
 
+
+function validateUpdate() {
+  const nome = $('input[name="cad-nome"]').val();
+  const nascimento = $('input[name="cad-nascimento"]').val();
+  const endereco = $('input[name="cad-endereco"]').val();
+  const estadoCivil = $('input[name="cad-estado"]:checked').val();
+  const sexo = $('input[name="cad-sexo"]:checked').val();
+
+  if (nome.trim() === "") {
+    showDangerAlert("Por favor, preencha o campo Nome.");
+    return false;
+  }
+
+  if (!nascimento.trim()) {
+    showDangerAlert("Por favor, preencha o campo Data de Nascimento.");
+    return false;
+  }
+
+  if (endereco.trim() === "") {
+    showDangerAlert("Por favor, preencha o campo Endereço.");
+    return false;
+  }
+
+  if (!sexo) {
+    showDangerAlert("Por favor, selecione uma opção de Sexo.");
+    return false;
+  }
+
+  if (!estadoCivil) {
+    showDangerAlert("Por favor, selecione uma opção de Estado Civil.");
+    return false;
+  }
+
+  return true;
+}
+
+function validateObs() {
+  const tipo = $('select[name="cad-tipo"]').val();
+  const data = $('input[name="cad-data"]').val();
+  const observacoes = $('textarea[name="cad-obs"]').val();
+
+  if (tipo.trim() === "") {
+    showDangerAlert("Por favor, selecione uma opção de Tipo.");
+    return false;
+  }
+
+  if (!data.trim()) {
+    showDangerAlert("Por favor, preencha o campo Data da Observação.");
+    return false;
+  }
+
+  if (observacoes.trim() === "") {
+    showDangerAlert("Por favor, preencha o campo Observações.");
+    return false;
+  }
+
+  return true;
+}
+
+
 function showDangerAlert(message) {
   $(".alert-info").hide();
   $(".alert-danger").text(message);
-  $(".alert-danger").fadeIn();
+  $(".alert-danger").show();
   const alertOffset = $(".alert-danger").offset().top;
   $("html, body").scrollTop(alertOffset);
 }
@@ -224,7 +377,7 @@ function showDangerAlert(message) {
 function showInfoAlert(message) {
   $(".alert-danger").hide();
   $(".alert-info").text(message);
-  $(".alert-info").fadeIn();
+  $(".alert-info").show();
   const alertOffset = $(".alert-danger").offset().top;
   $("html, body").scrollTop(alertOffset);
 }

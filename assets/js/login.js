@@ -61,12 +61,12 @@ function cad() {
   if (validateCadastro()) {
     mostrarLoading();
     const nome = $('input[name="cad-nome"]').val();
-    const data = $('input[name="cad-nascimento"]').val();
-    const endereco = $('input[name="cad-endereco"]').val();
+    //const data = $('input[name="cad-nascimento"]').val();
+    //const endereco = $('input[name="cad-endereco"]').val();
     const email = $('input[name="cad-email"]').val();
     const senha = $('input[name="cad-password"]').val();
     const sexo = $('input[name="cad-sexo"]:checked').val();
-    const estado_civil = $('input[name="cad-estado"]:checked').val();
+    //const estado_civil = $('input[name="cad-estado"]:checked').val();
     const limitacoes = $('input[name="cad-limitacoes"]:checked').map(function() {
         return $(this).val();
       }).get();
@@ -91,16 +91,18 @@ function cad() {
       
       const userData = {
         nome: nome,
-        data: data,
-        endereco: endereco,
+        nascimento: "",
+        endereco: "",
         sexo: sexo,
-        estado_civil: estado_civil,
+        estadoCivil: "",
         limitacoes: limitacoes,
-        alergia: alergia,
+        alergias: alergia,
         doencas: doencas,
-        cirurgia: cirurgia,
+        cirurgias: cirurgia,
         userId: user.uid
       }
+
+      console.log(userData);
 
       // Salva os dados adicionais no documento do usuário
       usersCollection.add(userData).then((dados) => {

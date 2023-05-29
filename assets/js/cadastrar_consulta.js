@@ -15,7 +15,7 @@ function carregarMedicos(){
       querySnapshot.forEach((doc) => {
        const nomeMedico = doc.data().nome;
         const optionElement = document.createElement('option');
-        optionElement.value = nomeMedico;
+        optionElement.value = doc.id;
         optionElement.textContent = nomeMedico;
         selectElement.appendChild(optionElement);
       });
@@ -28,20 +28,23 @@ function carregarMedicos(){
 
 
 function cadastrarConsulta() {
-    event.preventDefault();
     const db = firebase.firestore();
     const nome = firebase.auth().currentUser.displayName;
+    const id = firebase.auth().currentUser.uid;
   
     const dataHora = document.getElementById('diaConsulta').value;
     const sintoma = document.getElementById('sintomas').value;
     const selectElement = document.getElementById('medicos-select');
     const medicoSelecionado = selectElement.value;
+    const medicoNome = selectElement.options[selectElement.selectedIndex].innerHTML;
     const mensagemSucesso = document.getElementById('mensagemSucesso');
   
     const consultaData = {
       nome: nome,
+      uid: id,
       data: dataHora,
       medico: medicoSelecionado,
+      nomeMedico: medicoNome,
       sintoma: sintoma
     };
   

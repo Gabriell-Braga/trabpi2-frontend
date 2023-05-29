@@ -30,22 +30,43 @@ function cad() {
         const crm = $('input[name="cad-crm"]').val();
         const area = $('select[name="cad-area-atuacao"]').val();
         const sexo = $('input[name="cad-sexo"]:checked').val();
+        const horas = $('input[name="cad-horas"]').val();
+        const email = $('input[name="cad-email"]').val();
+        const senha = $('input[name="cad-password"]').val();
         const user = firebase.auth().currentUser;
         const db = firebase.firestore();
         const medicosCollection = db.collection('medicos');
-        
-        const medicoData = {
+        var medicoData;
+
+        firebase.auth().createUserWithEmailAndPassword(email, senha)
+        .then((userCredential) => {
+        // Obtém a referência do usuário criado
+        const user = userCredential.user;
+        medicoData = {
             nome: nome,
             crm: crm,
             sexo: sexo,
-            area: area
+            area: area,
+            horas: horas,
+            uid: userCredential.user.uid
         }
-
-        // Salva os dados adicionais no documento do medico
-        medicosCollection.add(medicoData).then((dados) => {
-            showInfoAlert('Usuario Criado com Sucesso!');
-            removerLoading();
-        }).catch((error) => {
+        // Atualiza o perfil do usuário com o nome
+        return user.updateProfile({
+            displayName: nome
+        });
+        }).then(() => {
+            // Salva os dados adicionais no documento do medico
+            medicosCollection.add(medicoData).then((dados) => {
+                showInfoAlert('Usuário Criado com Sucesso!');
+                removerLoading();
+                firebase.auth().signInWithEmailAndPassword('admin@admin.com', 'admin123');
+            }).catch((error) => {
+                removerLoading();
+                showDangerAlert(errorMessage(error.code));
+                firebase.auth().signInWithEmailAndPassword('admin@admin.com', 'admin123');
+            });
+        })
+        .catch((error) => {
             removerLoading();
             showDangerAlert(errorMessage(error.code));
         });
