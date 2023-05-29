@@ -62,7 +62,8 @@ function cadastrarConsulta() {
       if (!querySnap.empty) {
         // Médico já possui uma consulta marcada nessa data e horário
         removerLoading();
-        mensagemSucesso.textContent = "Médico nao tem esse horario disponivel!";
+        
+        showDangerAlert("Médico nao tem esse horario disponivel!");
       } else {
         // Médico não possui uma consulta marcada nessa data e horário
         // Verificar se o médico tem horas disponíveis
