@@ -2,6 +2,7 @@ function initializeApp() {
   init();
   verify();
   carregarMedicos();
+  carregarEspecialidades();
 }
 
 function carregarMedicos() {
@@ -136,3 +137,81 @@ function cadastrarConsulta() {
       showDangerAlert("Erro ao verificar consulta existente: " + error);
     });
 }
+
+function carregarEspecialidades() {
+  const db = firebase.firestore();
+  const medicosCollection = db.collection("medicos");
+  const radioGroupElement = document.getElementById("especialidades-radio");
+
+  medicosCollection
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const especialidadeMedico = doc.data().area;
+
+        // Verifica se a especialidade já foi adicionada ao radio group
+        if (!radioGroupElement.querySelector(`input[value="${especialidadeMedico}"]`)) {
+          const radioLabel = document.createElement("label");
+          radioLabel.classList.add("radio-label");
+
+          const radioInput = document.createElement("input");
+          radioInput.type = "radio";
+          radioInput.name = "especialidade";
+          radioInput.value = especialidadeMedico;
+          radioInput.addEventListener("change", filtrarMedicosPorEspecialidade);
+
+          const radioText = document.createTextNode(especialidadeMedico);
+
+          radioLabel.appendChild(radioInput);
+          radioLabel.appendChild(radioText);
+          radioGroupElement.appendChild(radioLabel);
+          
+
+          const lineBreak = document.createElement("br");
+          radioGroupElement.appendChild(lineBreak);
+        }
+      });
+
+      // Marca o primeiro radio button por padrão
+      const primeiroRadio = radioGroupElement.querySelector("input[type='radio']");
+      primeiroRadio.checked = true;
+
+      // Filtra os médicos com base na especialidade marcada
+      filtrarMedicosPorEspecialidade();
+    })
+    .catch((error) => {
+      console.log("Erro ao recuperar as especialidades dos médicos:", error);
+    });
+}
+
+
+function filtrarMedicosPorEspecialidade() {
+  const especialidadeSelecionada = document.querySelector("input[name='especialidade']:checked").value;
+  
+  const db = firebase.firestore();
+  const medicosCollection = db.collection("medicos");
+  const medicosListElement = document.getElementById("medicos-select");
+  
+  // Limpa a lista de médicos
+  while (medicosListElement.firstChild) {
+    medicosListElement.firstChild.remove();
+  }
+  
+  medicosCollection
+    .where("area", "==", especialidadeSelecionada)
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const nomeMedico = doc.data().nome;
+        const optionElement = document.createElement("option");
+        optionElement.value = doc.data().uid;
+        optionElement.textContent = nomeMedico;
+        medicosListElement.appendChild(optionElement);
+      });
+    })
+    .catch((error) => {
+      console.log("Erro ao filtrar os médicos por especialidade:", error);
+    });
+}
+
+// Chame a função carregarEspecialidades() no seu onload para carregar as especialidades ao carregar a página.

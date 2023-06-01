@@ -6,6 +6,7 @@ function initializeApp() {
       if(user){
         const displayName = user.displayName;
         exibirConsultas(displayName);
+        exibirConsultasModal(displayName);
       }
     });
 }
@@ -126,3 +127,65 @@ function cancelarConsulta(consultaId) {
       console.error("Erro ao recuperar a consulta:", error);
     });
 }
+
+function exibirConsultasModal(nome) {
+  const consultasRef = firebase.firestore().collection("consultas");
+  consultasRef.where("nome", "==", nome).get().then((querySnapshot) => {
+    const selectConsultas = document.getElementById("select-consultas"); // Elemento select para exibir as consultas
+
+    // Limpar o select antes de adicionar as opções
+    selectConsultas.innerHTML = "";
+
+    querySnapshot.forEach((doc) => {
+      const consulta = doc.data();
+
+      // Criar uma nova opção para cada consulta
+      const novaOpcao = document.createElement("option");
+
+      // Definir o valor e o texto da opção com os dados da consulta
+      novaOpcao.value = doc.id;
+      novaOpcao.textContent = consulta.nomeMedico + " - " + consulta.data;
+
+      // Adicionar a opção ao select
+      selectConsultas.appendChild(novaOpcao);
+    });
+  });
+}
+
+
+
+
+// Adicionar um ouvinte de evento para o botão de remarcar
+
+
+
+function btnremarcar(){
+  const selectConsultas = document.getElementById("select-consultas");
+  const calendario = document.getElementById("calendario");
+  const inputDataConsulta = document.getElementById("data-consulta");
+  const consultaId = selectConsultas.value;
+  const novaData = inputDataConsulta.value;
+
+  remarcarConsulta(consultaId, novaData);
+}
+
+
+function remarcarConsulta(consultaId, novaData) {
+  mostrarLoading();
+  const consultasRef = firebase.firestore().collection("consultas");
+
+  console.log(consultaId)
+  console.log(novaData)
+  consultasRef.doc(consultaId).update({
+    data: novaData
+  }).then(() => {
+    console.log("Consulta remarcada com sucesso!");
+    showInfoAlert("Consulta remarcada");
+  }).catch((error) => {
+    console.error("Erro ao remarcar a consulta:", error);
+    showDamageAlert("Erro ao remarcar");
+  });
+
+  removerLoading();
+}
+
