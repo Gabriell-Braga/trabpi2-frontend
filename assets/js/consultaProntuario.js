@@ -28,7 +28,7 @@ function exibirProntuarios() {
     querySnapshot.forEach((doc) => {
       const consulta = doc.data();
 
-      if(consulta.nome && consulta.nome.includes($("#inputNome").val())){
+      if(consulta.nome && consulta.nome.toLowerCase().includes($("#inputNome").val().toLowerCase())){
         // Criar uma nova linha na tabela para cada consulta
         const novaLinha = document.createElement("tr");
 
@@ -40,7 +40,8 @@ function exibirProntuarios() {
         // Definir o conteúdo das células com os dados da consulta
         nomeCelula.textContent = consulta.nome.charAt(0).toUpperCase() + consulta.nome.slice(1);
         sexoCelula.textContent = consulta.sexo.charAt(0).toUpperCase() + consulta.sexo.slice(1);
-        botaoCelula.innerHTML = '<a href="prontuario.html?uid='+consulta.userId+'" class="btn btn-primary">Prontuário</a>';
+        botaoCelula.innerHTML = '<a href="prontuario.html?uid='+consulta.userId+'" class="btn btn-primary mr-2">Prontuário</a>'+
+        '<a href="sinais.html?uid='+consulta.userId+'" class="btn btn-primary">Sinais Vitais</a>';
 
         // Adicionar as células à linha
         novaLinha.appendChild(nomeCelula);

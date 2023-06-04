@@ -40,6 +40,58 @@ function logIn() {
     });
 }
 
+function loginGoogle() {
+  mostrarLoading();
+  var provider = new firebase.auth.GoogleAuthProvider();
+  firebase
+    .auth()
+    .signInWithPopup(provider)
+    .then((result) => {
+      var user = result.user;
+      var isNewUser = result.additionalUserInfo.isNewUser;
+
+      if (isNewUser) {
+        const db = firebase.firestore();
+        const usersCollection = db.collection('usuarios');
+        
+        const userData = {
+          nome: user.displayName,
+          nascimento: "",
+          endereco: "",
+          sexo: "",
+          estadoCivil: "",
+          limitacoes: [],
+          alergias: "",
+          doencas: "",
+          cirurgias: "",
+          userId: user.uid
+        }
+
+        console.log(userData, user.displayName, user.uid);
+
+        // Salva os dados adicionais no documento do usuário
+        usersCollection.add(userData).then((dados) => {
+          changeCadLogin(false);
+          showInfoAlert('Usuario Logado com Sucesso!');
+          removerLoading();
+          window.location.href = "consultas.html";
+        }).catch((error) => {
+          removerLoading();
+          showDangerAlert(errorMessage(error.code));
+        });
+        }else{
+          window.location.href = "consultas.html";
+        }
+    })
+    .catch((error) => {
+      console.log("error", error);
+      $(".alert-info").hide();
+      $(".alert-danger").text(errorMessage(error.code));
+      $(".alert-danger").fadeIn();
+      removerLoading();
+    });
+}
+
 function recoverPass() {
   mostrarLoading();
   email = $('input[name="email"]').val();

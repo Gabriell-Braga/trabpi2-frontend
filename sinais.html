@@ -16,7 +16,10 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script src="assets/js/cadastrar_consulta.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="assets/js/sinal.js"></script>
     <link
       rel="stylesheet"
       type="text/css"
@@ -83,58 +86,76 @@
             </div>
           </div>
         </nav>
-
-        <div class="container">
-          <div class="alert alert-danger mb-2 mt-3 none" role="alert">
-            Erro ao Tentar Acesso!
-          </div>
-          <h2>Formulário de Consulta</h2>
-          <div class="form-group">
-            <label for="diaConsulta">Dia da Consulta:</label>
-            <input
-              type="datetime-local"
-              class="form-control"
-              id="diaConsulta"
-              name="diaConsulta"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="especialidades">Especialidade:</label>
-            <div id="especialidades-radio">
-              <!-- Radio buttons de especialidades serão adicionados aqui -->
+        <!-- Page content-->
+        <div class="container-fluid mt-4">
+          <section class="main-content">
+            <div class="container">
+              <h1>Sinais Vitais</h1>
+              <button
+                data-bs-toggle="modal"
+                data-bs-target="#modal"
+                type="button"
+                class="form-control btn btn-primary rounded submit px-3"
+              >
+                Adicionar Sinal Vital
+              </button>
+              <canvas id="graficoSinaisVitais"></canvas>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="medicos-select">Médico</label>
-            <select class="form-control" id="medicos-select"></select>
-          </div>
-          <div class="form-group">
-            <label for="sintomas">O que está sentindo:</label>
-            <textarea
-              class="form-control"
-              id="sintomas"
-              name="sintomas"
-              placeholder="Digite os sintomas"
-              required
-            ></textarea>
-          </div>
-          <button
-            onclick="cadastrarConsulta()"
-            class="form-control btn btn-primary rounded submit px-3"
-          >
-            Enviar
-          </button>
-          <div class="alert alert-danger mb-2 mt-3 none" role="alert">
-            Erro ao Tentar Acesso!
-          </div>
-          <div class="alert alert-info mb-2 mt-3 none" role="alert">
-            Erro ao Tentar Acesso!
-          </div>
+          </section>
         </div>
       </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Sinais</h5>
+              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group mb-3">
+                <div class="alert alert-danger mb-2 none" role="alert">
+                    Erro ao Tentar Acesso!
+                  </div>
+                  <div class="alert alert-info mb-2 none" role="alert">
+                    Erro ao Tentar Acesso!
+                  </div>
+                <label class="label" for="cad-tipo">Tipo</label>
+                <select required class="form-control" name="cad-tipo">
+                    <option disabled selected value="">Selecione...</option>
+                    <option value="cardiaca">Frequência Cardiaca</option>
+                    <option value="pressao">Pressão Arterial</option>
+                    <option value="respiratoria">Frequência Respiratória</option>
+                    <option value="temperatura">Temperatura Corporal</option>
+                    <option value="saturacao">Saturação de O2 no sangue</option>
+                </select>
+            </div>
+              <div class="form-group mb-3">
+                <label class="label" for="cad-data"
+                  >Data da Avaliação</label
+                >
+                <input
+                  type="date"
+                  name="cad-data"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group mb-3">
+                <label class="label" for="cad-sinal"
+                  >Valor Sinal</label
+                >
+                <input type="number" step=".01" name="cad-sinal" class="form-control"></input>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" onclick="salvarSinal()" class="btn btn-primary">Salvar Sinal</button>
+            </div>
+          </div>
+          <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>

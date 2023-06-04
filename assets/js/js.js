@@ -86,6 +86,10 @@ function verify() {
               '<a class="list-group-item list-group-item-action list-group-item-light p-3" href="cadastrar_medico.html">Cadastrar Médico</a>'
             );
           }
+
+          if(dados.nascimento == ""){
+            showDangerAlert("Complete o Cadastro para uso correto do site!");
+          }
         }
       });
       removerLoading();
@@ -343,11 +347,11 @@ function validateUpdate() {
 }
 
 function validateObs() {
-  const tipo = $('select[name="cad-tipo"]').val();
+  const tipo = $('select[name="cad-tipo"] option:selected').text();
   const data = $('input[name="cad-data"]').val();
   const observacoes = $('textarea[name="cad-obs"]').val();
 
-  if (tipo.trim() === "") {
+  if (tipo.trim() === "Selecione...") {
     showDangerAlert("Por favor, selecione uma opção de Tipo.");
     return false;
   }
@@ -358,6 +362,29 @@ function validateObs() {
   }
 
   if (observacoes.trim() === "") {
+    showDangerAlert("Por favor, preencha o campo Observações.");
+    return false;
+  }
+
+  return true;
+}
+
+function validateSinal() {
+  const tipo = $('select[name="cad-tipo"] option:selected').text();
+  const data = $('input[name="cad-data"]').val();
+  const sinal = $('input[name="cad-sinal"]').val();
+
+  if (tipo.trim() === "Selecione...") {
+    showDangerAlert("Por favor, selecione uma opção de Tipo.");
+    return false;
+  }
+
+  if (!data.trim()) {
+    showDangerAlert("Por favor, preencha o campo Data da Observação.");
+    return false;
+  }
+
+  if (sinal.trim() === "") {
     showDangerAlert("Por favor, preencha o campo Observações.");
     return false;
   }
