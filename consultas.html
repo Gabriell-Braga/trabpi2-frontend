@@ -99,12 +99,12 @@
 		  </button>
 		</div>
 		<div class="modal-body">
-			<select id="select-consultas"></select>
-
-			<div id="calendario" >
-			<label for="data-consulta">Nova data:</label>
-			<input type="datetime-local" id="data-consulta" required>
-			<button id="btn-remarcar" class="btn btn-primary" onclick="btnremarcar()">Remarcar</button>
+			<label>Consulta: </label>
+			<select id="select-consultas" class="form-control"></select>
+			<div id="calendario" class="mt-4">
+				<label for="data-consulta">Nova data:</label>
+				<input type="datetime-local" class="form-control" id="data-consulta" required>
+				<button id="btn-remarcar" class="btn btn-primary form-control mt-4" onclick="btnremarcar()">Remarcar</button>
 			</div>
 
 			<div class="alert alert-danger mb-2 mt-3 none" role="alert">
