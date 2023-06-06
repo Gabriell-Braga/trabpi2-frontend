@@ -1,6 +1,7 @@
 function initializeApp() {
     init();
     verify();
+    carregarDados();
     mostrarLoading();
     firebase.auth().onAuthStateChanged(user => {
       if(user){
@@ -9,6 +10,20 @@ function initializeApp() {
         exibirConsultasModal(displayName);
       }
     });
+}
+
+function carregarDados(){
+  fetch(`https://covid19-brazil-api.vercel.app/api/report/v1/brazil`)
+      .then(response => response.json())
+      .then(data => {
+        var formattedDate = moment(data.data.updated_at).format('DD/MM/YYYY HH:mm');
+        document.getElementById('cases').textContent = data.data.confirmed !== null ? data.data.confirmed.toLocaleString('pt-BR') : 'N/A';
+        document.getElementById('deaths').textContent = data.data.deaths !== null ? data.data.deaths.toLocaleString('pt-BR') : 'N/A';
+        document.getElementById('lastUpdate').textContent = formattedDate ;
+      })
+      .catch(error => {
+        console.log(error);
+      });
 }
 
 function exibirConsultas(nome) {
