@@ -117,6 +117,42 @@
                 />
               </div>
 
+              <div class="form-group mb-3 row">
+                <div class="col-md-3">
+                  <label class="label" for="cad-cep">CEP</label>
+                  <input
+                    onblur="getCep()"
+                    type="text"
+                    name="cad-cep"
+                    class="form-control"
+                    placeholder="CEP"
+                    required
+                  />
+                </div>
+                <div class="col-md-3">
+                  <label class="label" for="cad-estado">Estado</label>
+                  <input
+                    type="text"
+                    name="cad-estado"
+                    class="form-control"
+                    placeholder="Estado"
+                    readonly
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="label" for="cad-cidade">Cidade</label>
+                  <input
+                    type="text"
+                    name="cad-cidade"
+                    class="form-control"
+                    placeholder="Cidade"
+                    readonly
+                    required
+                  />
+                </div>
+              </div>
+
               <div class="form-group mb-3">
                 <label class="label" for="cad-endereco">Endereço</label>
                 <input
@@ -126,6 +162,29 @@
                   placeholder="Endereço"
                   required
                 />
+              </div>
+
+              <div class="form-group mb-3 row">
+                <div class="col-md-6">
+                  <label class="label" for="cad-num">Número</label>
+                  <input
+                    type="number"
+                    name="cad-num"
+                    class="form-control"
+                    placeholder="Número"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="label" for="cad-compl">Complemento</label>
+                  <input
+                    type="text"
+                    name="cad-compl"
+                    class="form-control"
+                    placeholder="Complemento"
+                    required
+                  />
+                </div>
               </div>
 
               <div class="form-group mb-3">
@@ -165,13 +224,13 @@
               </div>
 
               <div class="form-group mb-3">
-                <label class="label" for="cad-estado">Estado civil</label>
+                <label class="label" for="cad-estado-civil">Estado civil</label>
                 <div class="form-check">
                   <input
                     class="form-check-input"
                     value="Solteiro"
                     type="radio"
-                    name="cad-estado"
+                    name="cad-estado-civil"
                   />
                   <label class="form-check-label" for="sangue">Solteiro</label>
                 </div>
@@ -181,7 +240,7 @@
                     class="form-check-input"
                     value="Casado"
                     type="radio"
-                    name="cad-estado"
+                    name="cad-estado-civil"
                   />
                   <label class="form-check-label" for="sangue">Casado</label>
                 </div>
@@ -191,7 +250,7 @@
                     class="form-check-input"
                     value="Separado"
                     type="radio"
-                    name="cad-estado"
+                    name="cad-estado-civil"
                   />
                   <label class="form-check-label" for="sangue">Separado</label>
                 </div>
@@ -201,7 +260,7 @@
                     class="form-check-input"
                     value="Divorciado"
                     type="radio"
-                    name="cad-estado"
+                    name="cad-estado-civil"
                   />
                   <label class="form-check-label" for="sangue"
                     >Divorciado</label
@@ -213,7 +272,7 @@
                     class="form-check-input"
                     value="Viúvo"
                     type="radio"
-                    name="cad-estado"
+                    name="cad-estado-civil"
                   />
                   <label class="form-check-label" for="sangue">Viúvo</label>
                 </div>

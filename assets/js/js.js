@@ -59,8 +59,6 @@ function init() {
     if (!user) {
       window.location.href = "index.html";
     } else {
-      const displayName = user.displayName;
-      $("#usuario").text(displayName);
       removerLoading();
     }
   });
@@ -74,6 +72,8 @@ function verify() {
       snapshot.docs.forEach((doc) => {
         if (doc.data().userId == firebase.auth().currentUser.uid) {
           var dados = doc.data();
+          const displayName = dados.nome;
+          $("#usuario").text(displayName);
           $("#sidebar-add").append(
             '<a class="list-group-item list-group-item-action list-group-item-light p-3" href="consultas.html">Consultas</a>'+
             '<a class="list-group-item list-group-item-action list-group-item-light p-3" href="cadastrar_consulta.html">Marcar Consulta</a>'
@@ -83,7 +83,8 @@ function verify() {
           );
           if (dados.admin && dados.admin == 1) {
             $("#sidebar-add").append(
-              '<a class="list-group-item list-group-item-action list-group-item-light p-3" href="cadastrar_medico.html">Cadastrar Médico</a>'
+              '<a class="list-group-item list-group-item-action list-group-item-light p-3" href="cadastrar_medico.html">Cadastrar Médico</a>'+
+              '<a class="list-group-item list-group-item-action list-group-item-light p-3" href="cnes.html">Cadastrar CNES</a>'
             );
           }
 
@@ -105,6 +106,9 @@ function verify() {
       snapshot.docs.forEach((doc) => {
         if (doc.data().uid == firebase.auth().currentUser.uid) {
           var dados = doc.data();
+          var dados = doc.data();
+          const displayName = dados.nome;
+          $("#usuario").text(displayName);
           $("#sidebar-add").append(
             '<a class="list-group-item list-group-item-action list-group-item-light p-3" href="consultarProntuario.html">Prontuario medico</a>'
           );
@@ -113,7 +117,8 @@ function verify() {
           );
           if (dados.admin && dados.admin == 1) {
             $("#sidebar-add").append(
-              '<a class="list-group-item list-group-item-action list-group-item-light p-3" href="cadastrar_medico.html">Cadastrar Médico</a>'
+              '<a class="list-group-item list-group-item-action list-group-item-light p-3" href="cadastrar_medico.html">Cadastrar Médico</a>'+
+              '<a class="list-group-item list-group-item-action list-group-item-light p-3" href="cnes.html">Cadastrar CNES</a>'
             );
           }
         }
@@ -315,8 +320,12 @@ function validateUpdate() {
   const nome = $('input[name="cad-nome"]').val();
   const nascimento = $('input[name="cad-nascimento"]').val();
   const endereco = $('input[name="cad-endereco"]').val();
-  const estadoCivil = $('input[name="cad-estado"]:checked').val();
+  const estadoCivil = $('input[name="cad-estado-civil"]:checked').val();
   const sexo = $('input[name="cad-sexo"]:checked').val();
+  const estado = $('input[name="cad-estado"]').val();
+  const num = $('input[name="cad-num"]').val();
+  const cidade = $('input[name="cad-cidade"]').val();
+  const cep = $('input[name="cad-cep"]').val();
 
   if (nome.trim() === "") {
     showDangerAlert("Por favor, preencha o campo Nome.");
@@ -328,8 +337,28 @@ function validateUpdate() {
     return false;
   }
 
+  if (cep.trim() === "") {
+    showDangerAlert("Por favor, preencha o campo CEP.");
+    return false;
+  }
+
+  if (estado.trim() === "") {
+    showDangerAlert("Por favor, preencha o campo Estado.");
+    return false;
+  }
+
+  if (cidade.trim() === "") {
+    showDangerAlert("Por favor, preencha o campo Cidade.");
+    return false;
+  }
+
   if (endereco.trim() === "") {
     showDangerAlert("Por favor, preencha o campo Endereço.");
+    return false;
+  }
+
+  if (num.trim() === "") {
+    showDangerAlert("Por favor, preencha o campo Número.");
     return false;
   }
 

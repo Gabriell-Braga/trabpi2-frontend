@@ -21,6 +21,29 @@ function initializeApp() {
   });
 }
 
+function getCep() {
+  const cepInput = document.querySelector('input[name="cad-cep"]');
+  const cepValue = (cepInput.value).replace(/\D/g, "");
+
+  if(cepValue.length == 8){
+    fetch(`https://viacep.com.br/ws/${cepValue}/json`)
+      .then(response => response.json())
+      .then(data => {
+        const estadoInput = document.querySelector('input[name="cad-estado"]');
+        const cidadeInput = document.querySelector('input[name="cad-cidade"]');
+        const enderecoInput = document.querySelector('input[name="cad-endereco"]');
+        
+        estadoInput.value = data.uf;
+        cidadeInput.value = data.localidade;
+        enderecoInput.value = data.logradouro;
+      })
+      .catch(error => {
+        showDangerAlert('CEP informado está incorreto!');
+      });
+  }
+}
+
+
 function salvarObs(){
   if(validateObs()){
     mostrarLoading();
@@ -166,10 +189,15 @@ function getDados(id, nome) {
           }else{
             $("#outro").prop("checked", true);
           }
-          $('input[name="cad-estado"][value="' + dados.estadoCivil + '"]').prop("checked", true);
+          $('input[name="cad-estado-civil"][value="' + dados.estadoCivil + '"]').prop("checked", true);
           $('textarea[name="cad-alergia"]').val(dados.alergia);
-          $('textarea[name="cad-doenças"]').val(dados.doencas); // Update for doencas field
-          $('textarea[name="cad-cirugia"]').val(dados.cirurgias); // Update for cirurgias field
+          $('textarea[name="cad-doenças"]').val(dados.doencas);
+          $('textarea[name="cad-cirugia"]').val(dados.cirurgias);
+          $('input[name="cad-estado"]').val(dados.estado);
+          $('input[name="cad-cidade"]').val(dados.cidade);
+          $('input[name="cad-num"]').val(dados.num);
+          $('input[name="cad-compl"]').val(dados.compl);  
+          $('input[name="cad-cep"]').val(dados.cep);          
 
           dados.limitacoes.forEach((limitacao) => {
             $("#" + limitacao).prop("checked", true);
@@ -192,7 +220,7 @@ function salvar() {
     const nascimento = $('input[name="cad-nascimento"]').val();
     const endereco = $('input[name="cad-endereco"]').val();
     const sexo = $('input[name="cad-sexo"]:checked').val();
-    const estadoCivil = $('input[name="cad-estado"]:checked').val();
+    const estadoCivil = $('input[name="cad-estado-civil"]:checked').val();
     const limitacoes = [];
     $('input[name="cad-limitacoes"]:checked').each(function () {
       limitacoes.push($(this).val());
@@ -200,6 +228,11 @@ function salvar() {
     const alergia = $('textarea[name="cad-alergia"]').val();
     const doencas = $('textarea[name="cad-doenças"]').val();
     const cirurgias = $('textarea[name="cad-cirugia"]').val();
+    const estado = $('input[name="cad-estado"]').val();
+    const cidade = $('input[name="cad-cidade"]').val();
+    const num = $('input[name="cad-num"]').val();
+    const compl = $('input[name="cad-compl"]').val();
+    const cep = $('input[name="cad-cep"]').val();
     const db = firebase.firestore();
     const docRef = db.collection("usuarios").doc(usuariosId);
     docRef
@@ -207,7 +240,12 @@ function salvar() {
         {
           nome: nome,
           nascimento: nascimento,
+          cep: cep,
           endereco: endereco,
+          estado: estado,
+          cidade: cidade,
+          num: num,
+          compl: compl,
           sexo: sexo,
           estadoCivil: estadoCivil,
           limitacoes: limitacoes,

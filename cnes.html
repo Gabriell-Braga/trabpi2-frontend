@@ -17,7 +17,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script src="assets/js/perfil.js"></script>
+    <script src="assets/js/cnes.js"></script>
 </head>
 
 <body onload="initializeApp()">
@@ -64,50 +64,42 @@
                       </div>
                     <div class="signin-form">
                         <div class="form-group mb-3">
-                            <label class="label" for="cad-nome">Nome</label>
-                            <input type="text" readonly name="cad-nome" class="form-control" placeholder="Nome" required />
+                            <label class="label" for="cad-cnes">CNES</label>
+                            <input type="text" name="cad-cnes" id="cnes" class="form-control" onblur="getCnes()" placeholder="CNES" required />
                         </div>
-                        <div class="form-group mb-3">
-                            <label class="label" for="cad-situacao">Situação</label>
-                            <input type="text" readonly name="cad-situacao" class="form-control" placeholder="Situação" required />
-                        </div>
-                        <div class="form-group mb-3">
-                            <label class="label" for="cad-crm">CRM</label>
-                            <input type="text" onblur="getCrm()" name="cad-crm" class="form-control" placeholder="CRM" required />
-                        </div>
-                        <div class="form-group mb-3">
-                            <label class="label" for="cad-sex">Sexo</label>
-                            <div class="form-check">
-                                <input class="form-check-input" value="masculino" type="radio" name="cad-sexo">
-                                <label class="form-check-label" for="sexo">Masculino</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" value="feminino" type="radio" name="cad-sexo">
-                                <label class="form-check-label" for="sexo">Feminino</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" value="x" type="radio" name="cad-sexo">
-                                <label class="form-check-label" for="sexo">Prefiro Não dizer</label>
-                            </div>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label class="label" for="cad-area-atuacao">Área de Atuação</label>
-                            <select required class="form-control" name="cad-area-atuacao">
-                                <option disabled selected value="">Selecione...</option>
-                                <option value="cardiologia">Cardiologia</option>
-                                <option value="dermatologia">Dermatologia</option>
-                                <option value="endocrinologia">Endocrinologia</option>
-                                <option value="ginecologia">Ginecologia</option>
-                                <option value="neurologia">Neurologia</option>
-                                <option value="oftalmologia">Oftalmologia</option>
+                        <div class="mb-3">
+                            <label for="numero_cnpj" class="form-label">Número CNPJ</label>
+                            <input type="text" class="form-control" id="numero_cnpj" readonly>
+                          </div>
+                          <div class="mb-3">
+                            <label for="nome_razao_social" class="form-label">Nome/Razão Social</label>
+                            <input type="text" class="form-control" id="nome_razao_social" readonly>
+                          </div>
+                          <div class="mb-3">
+                            <label for="nome_fantasia" class="form-label">Nome Fantasia</label>
+                            <input type="text" class="form-control" id="nome_fantasia" readonly>
+                          </div>
+                          <div class="mb-3">
+                            <label for="endereco_estabelecimento" class="form-label">Endereço</label>
+                            <input type="text" class="form-control" id="endereco_estabelecimento" readonly>
+                          </div>
+                          <div class="mb-3">
+                            <label for="numero_estabelecimento" class="form-label">Número</label>
+                            <input type="text" class="form-control" id="numero_estabelecimento" readonly>
+                          </div>
+                          <div class="mb-3">
+                            <label for="bairro_estabelecimento" class="form-label">Bairro</label>
+                            <input type="text" class="form-control" id="bairro_estabelecimento" readonly>
+                          </div>
+                          <div class="mb-3">
+                            <label for="estabelecimento_faz_atendimento_ambulatorial_sus" class="form-label">Atendimento Ambulatorial SUS</label>
+                            <select class="form-select" id="estabelecimento_faz_atendimento_ambulatorial_sus" disabled>
+                              <option value="SIM">Sim</option>
+                              <option value="NAO">Não</option>
                             </select>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label class="label" for="cad-horas">Horas Mensais</label>
-                            <input type="number" name="cad-horas" class="form-control" required />
-                        </div>
+                          </div>
                         <div class="form-group">
-                            <button onclick="salvar()" type="submit"
+                            <button onclick="salvar()" disabled type="submit"
                                 class="form-control btn btn-primary rounded submit px-3">
                                 Salvar
                             </button>

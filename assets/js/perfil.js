@@ -30,12 +30,35 @@ function initializeApp() {
       });
 }
 
+function getCrm(){
+  const crm = $('input[name="cad-crm"]').val();
+
+  fetch(`https://www.consultacrm.com.br/api/index.php?tipo=CRM&q=${crm}&chave=3643833112&destino=json`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        if(data.total > 1){
+          showDangerAlert('Multiplas correspondências! Informe o UF antes do CRM!');
+        }else if(data.total == 0){
+          showDangerAlert('CRM informado está incorreto!');
+        }else if(data.total == 1){
+          dados = data.item[0];
+          $('input[name="cad-nome"]').val(dados.nome);
+          $('input[name="cad-situacao"]').val(dados.situacao);
+        }
+      })
+      .catch(error => {
+        showDangerAlert('CRM informado está incorreto!');
+      });
+}
+
 function getDados(id, nome) {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const uid = urlParams.get("uid");
     const db = firebase.firestore();
     const nomeInput = document.querySelector('input[name="cad-nome"]');
+    const situacao = document.querySelector('input[name="cad-situacao"]');
     const crm = document.querySelector('input[name="cad-crm"]');
     const sexoInputs = document.querySelectorAll('input[name="cad-sexo"]');
     const areaAtuacaoSelect = document.querySelector('select[name="cad-area-atuacao"]');
@@ -61,7 +84,7 @@ function getDados(id, nome) {
             
             // Preencher campo Área de Atuação
             areaAtuacaoSelect.value = dados.area;
-            
+            situacao.value = dados.situacao;
             horasInput.value = dados.horas;
           }
         });
@@ -78,6 +101,7 @@ function salvar() {
     if (validateUpdateMedico()) {
         mostrarLoading();
         const nome = $('input[name="cad-nome"]').val();
+        const situacao = $('input[name="cad-situacao"]').val();
         const crm = $('input[name="cad-crm"]').val();
         const area = $('select[name="cad-area-atuacao"]').val();
         const sexo = $('input[name="cad-sexo"]:checked').val();
@@ -88,6 +112,7 @@ function salvar() {
         .set(
             {
                 nome: nome,
+                situacao: situacao,
                 crm: crm,
                 sexo: sexo,
                 area: area,
