@@ -267,10 +267,10 @@ function validateCadastroMedico() {
   }
 
 
-  if (crm.trim() === "") {
+  /*if (crm.trim() === "") {
     showDangerAlert("Por favor, preencha o campo CRM.");
     return false;
-  }
+  }*/
 
   if (!sexo) {
     showDangerAlert("Por favor, selecione uma opção de Sexo.");

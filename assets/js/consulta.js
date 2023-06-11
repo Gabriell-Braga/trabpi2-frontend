@@ -175,11 +175,22 @@ function exibirConsultasModal(nome) {
 
 
 function btnremarcar(){
+
+
   const selectConsultas = document.getElementById("select-consultas");
   const calendario = document.getElementById("calendario");
   const inputDataConsulta = document.getElementById("data-consulta");
   const consultaId = selectConsultas.value;
   const novaData = inputDataConsulta.value;
+  
+  const dataAtual = new Date();
+  const dataFormulario = new Date(novaData);
+
+  if (dataFormulario < dataAtual) {
+    removerLoading();
+    showDangerAlert("A data da consulta não pode ser anterior à data atual.");
+    return; // Retorna e encerra a execução da função
+  }
 
   remarcarConsulta(consultaId, novaData);
 }

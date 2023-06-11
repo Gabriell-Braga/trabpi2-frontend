@@ -5,6 +5,7 @@ function initializeApp() {
   carregarEspecialidades();
 }
 
+
 function carregarMedicos() {
   const db = firebase.firestore();
   const medicosCollection = db.collection("medicos");
@@ -50,6 +51,17 @@ function cadastrarConsulta() {
   };
 
   console.log(consultaData);
+  
+  // Verificar se a data do formulário é menor que a data atual
+  const dataAtual = new Date();
+  const dataFormulario = new Date(dataHora);
+
+  if (dataFormulario < dataAtual) {
+    removerLoading();
+    showDangerAlert("A data da consulta não pode ser anterior à data atual.");
+    return; // Retorna e encerra a execução da função
+  }
+
 
   // Verificar se o médico já possui uma consulta marcada nessa data e horário
   const consultasRef = db.collection("consultas");
