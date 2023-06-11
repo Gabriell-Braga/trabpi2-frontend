@@ -182,7 +182,7 @@ function btnremarcar(){
   const inputDataConsulta = document.getElementById("data-consulta");
   const consultaId = selectConsultas.value;
   const novaData = inputDataConsulta.value;
-  
+
   const dataAtual = new Date();
   const dataFormulario = new Date(novaData);
 
@@ -191,6 +191,14 @@ function btnremarcar(){
     showDangerAlert("A data da consulta não pode ser anterior à data atual.");
     return; // Retorna e encerra a execução da função
   }
+
+  
+  if (!novaData) {
+    removerLoading();
+    showDangerAlert("A data da consulta não pode ser vazia.");
+    return; // Retorna e encerra a execução da função
+  }
+
 
   remarcarConsulta(consultaId, novaData);
 }

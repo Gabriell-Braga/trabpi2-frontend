@@ -51,10 +51,16 @@ function cadastrarConsulta() {
   };
 
   console.log(consultaData);
-  
+
   // Verificar se a data do formulário é menor que a data atual
   const dataAtual = new Date();
   const dataFormulario = new Date(dataHora);
+
+  if (!dataHora) {
+    removerLoading();
+    showDangerAlert("A data da consulta não pode ser vazia.");
+    return; // Retorna e encerra a execução da função
+  }
 
   if (dataFormulario < dataAtual) {
     removerLoading();
