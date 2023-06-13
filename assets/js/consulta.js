@@ -40,17 +40,17 @@ function exibirConsultas(nome) {
       const novaLinha = document.createElement("tr");
 
       // Criar células para cada campo da consulta
-      const nomeCelula = document.createElement("td");
+      //const nomeCelula = document.createElement("td");
       const dataCelula = document.createElement("td");
       const medicoCelula = document.createElement("td");
-      const sintomasCelula = document.createElement("td");
+      //const sintomasCelula = document.createElement("td");
       const cancelarCelula = document.createElement("td"); // Célula para o botão de cancelamento
 
       // Definir o conteúdo das células com os dados da consulta
-      nomeCelula.textContent = consulta.nome;
+     // nomeCelula.textContent = consulta.nome;
       dataCelula.textContent = consulta.data;
       medicoCelula.textContent = consulta.nomeMedico;
-      sintomasCelula.textContent = consulta.sintoma;
+    //  sintomasCelula.textContent = consulta.sintoma;
 
       // Criar o botão de cancelamento
       const cancelarBotao = document.createElement("button");
@@ -70,10 +70,10 @@ function exibirConsultas(nome) {
       cancelarCelula.appendChild(cancelarBotao);
 
       // Adicionar as células à linha
-      novaLinha.appendChild(nomeCelula);
+      //novaLinha.appendChild(nomeCelula);
       novaLinha.appendChild(dataCelula);
       novaLinha.appendChild(medicoCelula);
-      novaLinha.appendChild(sintomasCelula);
+    //  novaLinha.appendChild(sintomasCelula);
       novaLinha.appendChild(cancelarCelula); // Adicionar a célula de cancelamento à linha
 
       // Adicionar a linha ao corpo da tabela
