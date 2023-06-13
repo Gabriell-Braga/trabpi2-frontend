@@ -1,0 +1,4 @@
+function initializeApp() {
+    init();
+    verify();
+}

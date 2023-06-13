@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>MediNet
+</title>
+    <meta
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+      name="viewport"
+    />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="assets/js/js.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="assets/js/sinal.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="assets/style/style.css" />
+  </head>
+
+  <body onload="initializeApp()">
+    <div class="d-flex" id="wrapper">
+      <!-- Sidebar-->
+      <div class="border-end bg-white" id="sidebar-wrapper">
+        <div class="sidebar-heading border-bottom bg-primary">
+          <img src="assets/img/logo.png" height="75" />
+        </div>
+        <div class="list-group list-group-flush" id="sidebar-add"></div>
+      </div>
+      <!-- Page content wrapper-->
+      <div id="page-content-wrapper">
+        <!-- Top navigation-->
+        <nav
+          class="navbar navbar-expand-lg navbar-primary text-white bg-primary border-bottom"
+        >
+          <div class="container-fluid">
+            <i class="fa fa-bars cursor-pointer" id="sidebarToggle"></i>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle text-white"
+                    id="usuario"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  ></a>
+                  <div
+                    class="dropdown-menu dropdown-menu-end"
+                    aria-labelledby="navbarDropdown"
+                  >
+                    <div id="dropdown-add"></div>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item cursor-pointer" onclick="logout()"
+                      >Sair</a
+                    >
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <!-- Page content-->
+        <div class="container-fluid mt-4">
+          <section class="main-content">
+            <div class="container">
+              <h1>Sinais Vitais</h1>
+              <button
+                data-bs-toggle="modal"
+                data-bs-target="#modal"
+                type="button"
+                class="form-control btn btn-primary rounded submit px-3"
+              >
+                Adicionar Sinal Vital
+              </button>
+              <canvas id="graficoSinaisVitais"></canvas>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Sinais</h5>
+              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group mb-3">
+                <div class="alert alert-danger mb-2 none" role="alert">
+                    Erro ao Tentar Acesso!
+                  </div>
+                  <div class="alert alert-info mb-2 none" role="alert">
+                    Erro ao Tentar Acesso!
+                  </div>
+                <label class="label" for="cad-tipo">Tipo</label>
+                <select required class="form-control" name="cad-tipo">
+                    <option disabled selected value="">Selecione...</option>
+                    <option value="cardiaca">Frequência Cardiaca</option>
+                    <option value="pressao">Pressão Arterial</option>
+                    <option value="respiratoria">Frequência Respiratória</option>
+                    <option value="temperatura">Temperatura Corporal</option>
+                    <option value="saturacao">Saturação de O2 no sangue</option>
+                </select>
+            </div>
+              <div class="form-group mb-3">
+                <label class="label" for="cad-data"
+                  >Data da Avaliação</label
+                >
+                <input
+                  type="date"
+                  name="cad-data"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group mb-3">
+                <label class="label" for="cad-sinal"
+                  >Valor Sinal</label
+                >
+                <input type="number" step=".01" name="cad-sinal" class="form-control"></input>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" onclick="salvarSinal()" class="btn btn-primary">Salvar Sinal</button>
+            </div>
+          </div>
+          <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
