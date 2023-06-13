@@ -32,19 +32,22 @@ function initializeApp() {
 
 function getCrm(){
   const crm = $('input[name="cad-crm"]').val();
+  const uf = $('input[name="cad-uf"]').val();
 
-  fetch(`https://www.consultacrm.com.br/api/index.php?tipo=CRM&q=${crm}&chave=3643833112&destino=json`)
+  fetch(`https://www.consultacrm.com.br/api/index.php?tipo=CRM&q=${crm}&uf=${uf}&chave=3643833112&destino=json`)
       .then(response => response.json())
       .then(data => {
         console.log(data);
         if(data.total > 1){
-          showDangerAlert('Multiplas correspondências! Informe o UF antes do CRM!');
+          showDangerAlert('Multiplas correspondências! Informe o UF!');
         }else if(data.total == 0){
           showDangerAlert('CRM informado está incorreto!');
         }else if(data.total == 1){
+          showInfoAlert('CRM encontrado!')
           dados = data.item[0];
           $('input[name="cad-nome"]').val(dados.nome);
           $('input[name="cad-situacao"]').val(dados.situacao);
+          $('input[name="cad-uf"]').val(dados.uf);
         }
       })
       .catch(error => {
